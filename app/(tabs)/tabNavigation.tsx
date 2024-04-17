@@ -9,6 +9,9 @@ import { Home, Chat, Prices, Settings, Transaction } from '../screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Albums from '../screens/Albums';
 import HomeStackNav from './HomeStackNav';
+import ChatRoom from '../screens/chatRoom';
+import HomeTeacher from '../screens/Teacher/homeTeacher';
+import HomeTeacherStackNav from './HomeTeacherStackNav';
 
 const Tab =createBottomTabNavigator();
   const screenOptions = {
@@ -109,6 +112,10 @@ export default function TabLayout() {
               )
             }
           }}
+          />
+          <Tab.Screen
+            name='homeTeacherNav'
+            component={HomeTeacherStackNav}
           />
        </Tab.Navigator>
      </NavigationContainer>

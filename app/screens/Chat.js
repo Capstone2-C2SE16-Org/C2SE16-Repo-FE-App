@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function Chat() {
   const {logout, user} = useAuth();
-  const [users, setUsers] = useState<any[]>([]); // Chỉ định kiểu cho mảng users
+  const [users, setUsers] = useState([]); // Chỉ định kiểu cho mảng users
   useEffect(()=>{
     if(user?.uid)
       getUsers();
@@ -20,9 +20,9 @@ export default function Chat() {
     const q = query(usersRef, where('userId', '!=', user?.uid));
 
     const querySnapshot = await getDocs(q);
-    let data: any[] = [];
+    let data = [];
     querySnapshot.forEach(doc => {
-      data.push({ ...doc.data() });
+      data.push({...doc.data()});
     });
     setUsers(data);
   }

@@ -42,8 +42,8 @@ export default function ContactBook() {
               <Image source={require('../../assets/images/Capricorn.png')} />
               <Text>Cà rốt</Text>
             </View>
-          </View>
-          <View style={styles.buttonContainer}>
+        </View>
+        <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={[styles.button, showHealth ? styles.activeButton : null]}
                   onPress={() => setShowHealth(true)}
@@ -62,7 +62,7 @@ export default function ContactBook() {
           <View style={styles.contentContainer}>
           <View style={{height:1,backgroundColor:'#ccc',marginHorizontal:10}}></View>
                 {showHealth ? ( <SucKhoe /> ) : ( <HocTap /> )}
-          </View>
+        </View>
       </ScrollView>
 
     </SafeAreaView>

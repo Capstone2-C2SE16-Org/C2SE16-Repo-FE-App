@@ -54,7 +54,7 @@ export default function SucKhoe() {
       <View style={styles.info}>
         <View style={styles.infoWrap}>
         <FontAwesome name="heartbeat" size={30} color="black" />
-          <Text style={{fontSize:20,paddingLeft:5}}>Tim</Text>
+        <Text style={{fontSize:20,paddingLeft:5}}>Tim</Text>
         </View>
         <Text style={{paddingRight:30,fontSize:18}}>Bình thường</Text>
       </View>
