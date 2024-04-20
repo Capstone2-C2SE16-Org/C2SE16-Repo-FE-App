@@ -1,87 +1,84 @@
-// ../../assets/images/phieubengoan.png
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+// ../../assets/images/phieubengoan.png  GoodChildCouponsTeacher
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 const GoodChildCouponsTeacher = () => {
-  const [weeks, setWeeks] = useState([...Array(4)].map(() => ({ coupons: [], showAdd: false })));
-
-  const handleToggleAddButton = (weekIndex) => {
-    const newWeeks = [...weeks];
-    newWeeks[weekIndex].showAdd = !newWeeks[weekIndex].showAdd;
-    setWeeks(newWeeks);
-  };
+  const [weeks, setWeeks] = useState([...Array(4)].map(() => ({ couponAdded: false })));
 
   const handleAddCoupon = (weekIndex) => {
-    if (weeks[weekIndex].coupons.length < 1) {
-      const newWeeks = [...weeks];
-      newWeeks[weekIndex].coupons.push({});
-      setWeeks(newWeeks);
-    }
+    const newWeeks = [...weeks];
+    newWeeks[weekIndex].couponAdded = true;
+    setWeeks(newWeeks);
   };
 
   const handleDeleteCoupon = (weekIndex) => {
     const newWeeks = [...weeks];
-    newWeeks[weekIndex].coupons = [];
+    newWeeks[weekIndex].couponAdded = false;
     setWeeks(newWeeks);
   };
 
   return (
     <View style={styles.container}>
-        <View style={styles.row}>
-            {[0, 1].map((weekIndex) => (
-                <View key={weekIndex} style={styles.week}>
-                <Text style={styles.weekText}>Tuần {weekIndex + 1}</Text>
-                <View style={styles.couponContainer}>
-                    {weeks[weekIndex].coupons.map((coupon, couponIndex) => (
-                    <TouchableOpacity
-                        key={couponIndex}
-                        style={styles.couponItem}
-                        onPress={() => handleDeleteCoupon(weekIndex)}
-                    >
-                        <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
-                    </TouchableOpacity>
-                    ))}
-                    <TouchableOpacity
-                    style={[styles.couponItem, weeks[weekIndex].showAdd ? styles.removeButton : styles.addButton]}
-                    onPress={() => {
-                        weeks[weekIndex].showAdd ? handleDeleteCoupon(weekIndex) : handleAddCoupon(weekIndex);
-                        handleToggleAddButton(weekIndex);
-                    }}
-                    >
-                    <Text style={styles.buttonText}>{weeks[weekIndex].showAdd ? '-' : '+'}</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            ))}
+      <View style={styles.weeksContainer}>
+        <View style={styles.week}>
+          <Text style={styles.weekText}>Tuần 1</Text>
+          <View style={styles.couponContainer}>
+            {weeks[0].couponAdded ? (
+              <TouchableOpacity style={styles.couponItem} onPress={() => handleDeleteCoupon(0)}>
+                <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.addButton} onPress={() => handleAddCoupon(0)}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-        <View style={styles.row}>
-            {[2, 3].map((weekIndex) => (
-                <View key={weekIndex} style={styles.week}>
-                <Text style={styles.weekText}>Tuần {weekIndex + 1}</Text>
-                <View style={styles.couponContainer}>
-                    {weeks[weekIndex].coupons.map((coupon, couponIndex) => (
-                    <TouchableOpacity
-                        key={couponIndex}
-                        style={styles.couponItem}
-                        onPress={() => handleDeleteCoupon(weekIndex)}
-                    >
-                        <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
-                    </TouchableOpacity>
-                    ))}
-                    <TouchableOpacity
-                    style={[styles.couponItem, weeks[weekIndex].showAdd ? styles.removeButton : styles.addButton]}
-                    onPress={() => {
-                        weeks[weekIndex].showAdd ? handleDeleteCoupon(weekIndex) : handleAddCoupon(weekIndex);
-                        handleToggleAddButton(weekIndex);
-                    }}
-                    >
-                    <Text style={styles.buttonText}>{weeks[weekIndex].showAdd ? '-' : '+'}</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            ))}
+        <View style={styles.week}>
+          <Text style={styles.weekText}>Tuần 2</Text>
+          <View style={styles.couponContainer}>
+            {weeks[1].couponAdded ? (
+              <TouchableOpacity style={styles.couponItem} onPress={() => handleDeleteCoupon(1)}>
+                <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.addButton} onPress={() => handleAddCoupon(1)}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
+      </View>
+      <View style={styles.weeksContainer}>
+        <View style={styles.week}>
+          <Text style={styles.weekText}>Tuần 3</Text>
+          <View style={styles.couponContainer}>
+            {weeks[2].couponAdded ? (
+              <TouchableOpacity style={styles.couponItem} onPress={() => handleDeleteCoupon(2)}>
+                <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.addButton} onPress={() => handleAddCoupon(2)}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+        <View style={styles.week}>
+          <Text style={styles.weekText}>Tuần 4</Text>
+          <View style={styles.couponContainer}>
+            {weeks[3].couponAdded ? (
+              <TouchableOpacity style={styles.couponItem} onPress={() => handleDeleteCoupon(3)}>
+                <Image source={require('../../assets/images/phieubengoan.png')} style={styles.couponImage} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity style={styles.addButton} onPress={() => handleAddCoupon(3)}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -92,11 +89,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  row: {
+  weeksContainer: {
     flexDirection: 'row',
   },
   week: {
-    alignItems: 'center',
+    flex: 1,
+    alignItems: 'flex-start',
     margin: 10,
   },
   weekText: {
@@ -105,34 +103,31 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   couponContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  couponItem: {
-    width: wp(44), 
-    height: wp(52),
-    backgroundColor: 'lightgray',
-    margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   addButton: {
-    backgroundColor: 'green',
-  },
-  removeButton: {
-    backgroundColor: 'red',
+    width: 150,
+    height: 200,
+    backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 40,
-    color: 'white',
+    color: 'black',
+  },
+  couponItem: {
+    width: 150,
+    height: 200,
+    backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   couponImage: {
-    width:145,
-    height:195,
+    width: 145,
+    height: 195,
   },
 });
 
 export default GoodChildCouponsTeacher;
-
-

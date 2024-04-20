@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     borderRadius:20,
     alignItems:'center',
     justifyContent:'center',
-    marginHorizontal:135,
+    marginHorizontal:130,
     marginTop:20,
 },
 buttonText:{

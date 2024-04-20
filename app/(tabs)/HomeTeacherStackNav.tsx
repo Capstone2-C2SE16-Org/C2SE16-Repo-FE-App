@@ -12,7 +12,9 @@ import LichHocTeacher from '../screens/Teacher/lichHocTeacher';
 import HocSinh from '../screens/Teacher/hocSinh';
 import ContactBookTeacher from '../screens/Teacher/contactBookTeacher';
 import SelectStudent from '../screens/Teacher/selectStudent';
-
+import SelectStudentInfo from '../screens/Teacher/selectStudentInfo';
+import StudentInfo from '../screens/Teacher/studentInfo';
+import LeaveRequestsTeacherScreen from '../screens/Teacher/xinNghi';
 const Stack = createStackNavigator();
 
 export default function HomeTeacherStackNav() {
@@ -43,7 +45,17 @@ export default function HomeTeacherStackNav() {
             headerShown:false
         }}
         />
-        <Stack.Screen name='hocsinh' component={HocSinh}
+        <Stack.Screen name='thongbaoxinghi' component={LeaveRequestsTeacherScreen}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='selectstudentinfo' component={SelectStudentInfo}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='studentinfo' component={StudentInfo}
          options={{
             headerShown:false
         }}

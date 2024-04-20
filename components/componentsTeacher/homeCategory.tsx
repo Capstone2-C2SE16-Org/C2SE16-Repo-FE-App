@@ -28,7 +28,7 @@ export default function HomeCategory() {
             <Text style={styles.text}>Sổ Liên Lạc</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            // onPress={()=>navigation.navigate('xinnghi')}
+            onPress={()=>navigation.navigate('thongbaoxinghi')}
           style={styles.item}>
             <View style={styles.icon}>
             <Ionicons name="clipboard-outline" size={40} ></Ionicons>
@@ -47,7 +47,7 @@ export default function HomeCategory() {
 
         <View style={styles.row2}>
           <TouchableOpacity style={styles.item}
-            // onPress={()=>navigation.navigate('dinhduong')}
+            onPress={()=>navigation.navigate('selectstudentinfo')}
           >
             <View style={styles.icon}>
                 <Image 
