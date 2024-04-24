@@ -22,6 +22,13 @@ export default function XinNghi() {
       setShowPicker(false);
       setDate(currentDate);
     };
+
+    const handleSubmit = () => {
+        console.log('Lý do xin nghỉ:', value);
+        console.log('Lý do khác:', text);
+        console.log('Ngày nghỉ:', date.toDateString());
+    };
+    
   return (
     <SafeAreaView>
         {/* Header */}
@@ -37,64 +44,64 @@ export default function XinNghi() {
             </View>
             <Text style={{fontSize:20}}>Lý do xin nghỉ</Text>
             <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
-        <View  style={styles.reason}>
-            <View  style={styles.reasonList}>
-                <RadioButton value="sot" />
-                <Text>Sốt</Text>
+            <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
+                <View  style={styles.reason}>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="sot" />
+                        <Text>Sốt</Text>
+                    </View>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="non" />
+                        <Text>Nôn</Text>
+                    </View>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="ho" />
+                        <Text>Ho</Text>
+                    </View>                
+                </View>
+                <View  style={styles.reason}>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="daumat" />
+                        <Text>Đau mắt</Text>
+                    </View>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="daubung" />
+                        <Text>Đau bụng</Text>
+                    </View>
+                    <View  style={styles.reasonList}>
+                        <RadioButton.Android value="coviecgd" />
+                        <Text>Có việc gia đình</Text>
+                    </View>
+                </View>
             </View>
-            <View  style={styles.reasonList}>
-                <RadioButton value="non" />
-                <Text>Nôn</Text>
-            </View>
-        </View>
-        <View  style={styles.reason}>
-            <View  style={styles.reasonList}>
-                <RadioButton value="ho" />
-                <Text>Ho</Text>
-            </View>
-            <View  style={styles.reasonList}>
-                <RadioButton value="daumat" />
-                <Text>Đau mắt</Text>
-            </View>
-        </View>
-        <View  style={styles.reason}>
-            <View  style={styles.reasonList}>
-                <RadioButton value="daubung" />
-                <Text>Đau bụng</Text>
-            </View>
-            <View  style={styles.reasonList}>
-                <RadioButton value="coviecgd" />
-                <Text>Có việc gia đình</Text>
-            </View>
-        </View>
-        </RadioButton.Group>
-        <Text style={{fontSize:20}}>Lý do khác</Text>
-        <View style={styles.containerInput}>
-            <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}
-            value={text}
-            placeholder="Nhập lý do khác..."
-            />
-        </View>
-        <View style={{paddingTop:20}}>
-            <View style={{backgroundColor:'#c9c9c9',width:150,height:40,borderRadius:5}}> 
-            {/* <Button title="Chọn ngày nghỉ:" onPress={() => setShowPicker(true)} />
-            {showPicker && (
-                <DateTimePicker
-                value={date}
-                mode="date"
-                display="default"
-                onChange={onChange}
+            </RadioButton.Group>
+            <Text style={{fontSize:20}}>Lý do khác</Text>
+            <View style={styles.containerInput}>
+                <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="Nhập lý do khác..."
                 />
-            )} */}
             </View>
-            <Text style={{fontSize:20,marginTop:30}}>Ngày đã chọn: {date.toDateString()}</Text>
-        </View>
-        <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize:20,fontWeight:'bold',color:'white'}}>Gửi</Text>
-        </TouchableOpacity>
-        </View>
+            <View style={{paddingTop:20}}>
+                <View style={{backgroundColor:'#c9c9c9',width:150,height:40,borderRadius:5, flexDirection:'row'}}> 
+                <Button title="Chọn ngày nghỉ:" onPress={() => setShowPicker(true)} />
+                {showPicker && (
+                    <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="default"
+                    onChange={onChange}
+                    />
+                )}
+                </View>
+                <Text style={{fontSize:20,marginTop:30}}>Ngày đã chọn: {date.toDateString()}</Text>
+            </View>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={{fontSize:20,fontWeight:'bold',color:'white'}}>Gửi</Text>
+            </TouchableOpacity>
+            </View>
     </SafeAreaView>
   );
 }
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
         paddingTop:10
     },
     reason:{
-        flexDirection:'row',
+        flexDirection:'column',
         justifyContent: 'space-around'
     },
     reasonList:{

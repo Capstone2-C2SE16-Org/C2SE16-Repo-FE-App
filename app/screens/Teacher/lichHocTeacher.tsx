@@ -4,19 +4,30 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function LichHocTeacher() {
   const navigation = useNavigation();
   const [morningActivity, setMorningActivity] = useState('');
   const [noonActivity, setNoonActivity] = useState('');
   const [afternoonActivity, setAfternoonActivity] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
 
   const handleUpdate = () => {
     // Gửi dữ liệu cập nhật lên server hoặc xử lý theo nhu cầu của bạn
+    console.log('Ngày đã chọn:', selectedDate);
     console.log('Hoạt động buổi sáng:', morningActivity);
     console.log('Hoạt động buổi trưa:', noonActivity);
     console.log('Hoạt động buổi chiều:', afternoonActivity);
   };
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || selectedDate;
+    setShowPicker(false);
+    setSelectedDate(currentDate);
+  };
+
   return (
     <SafeAreaView style={{backgroundColor:'#fff'}}>
     {/* Header */}
@@ -34,8 +45,20 @@ export default function LichHocTeacher() {
         <Text style={{fontSize:25,fontWeight:'bold',color:'red'}}>KHỐI MẪU GIÁO LỚN</Text>
         <Text style={{fontSize:20,fontWeight:'bold',color:'red'}}>Thời gian thực hiện từ 4/3 đến 8/3</Text>
       </View>
+      <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={() => setShowPicker(true)}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Chọn ngày</Text>
+          {showPicker && (
+          <DateTimePicker
+            value={selectedDate}
+            mode="date"
+            display="default"
+            onChange={onChangeDate}
+          />
+        )}
+        </TouchableOpacity>
+        
       <View style={{width:400,height:25,backgroundColor:'#ccc',alignItems:'center',justifyContent:'center',marginHorizontal:13}}>
-        <Text style={{fontSize:20,fontWeight:'bold'}}>Thứ 2 4/3/2024</Text>
+        <Text style={{fontSize:20,fontWeight:'bold'}}>{selectedDate.toDateString()}</Text>
       </View>
       <View style={styles.viewSchedule}>
         <View style={{flexDirection:'row',alignItems:'center'}}>
