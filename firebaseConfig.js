@@ -30,3 +30,15 @@ export const db = getFirestore(app);
 
 export const usersRef = collection(db,'user');
 export const roomRef = collection(db,'rooms');
+
+// // Kiểm tra xem Firebase Analytics có được hỗ trợ không
+// async function setupAnalytics() {
+//   const isSupported = await firebase.analytics.isSupported();
+//   if (isSupported) {
+//     firebase.analytics();
+//   } else {
+//     console.log("Firebase Analytics is not supported in this environment.");
+//   }
+// }
+
+// setupAnalytics();
