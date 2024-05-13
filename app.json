@@ -16,24 +16,39 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "supportsTablet": true,
+      "bundleIdentifier": "com.smartcare.smapp",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Ứng dụng cần truy cập Camera để bạn có thể chụp ảnh.",
+        "NSPhotoLibraryUsageDescription": "Ứng dụng cần truy cập Thư viện Ảnh để bạn có thể chọn ảnh."
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/images/adaptive-icon.png",
+          "backgroundColor": "#ffffff",
+          "package": "com.smartcare.smapp",
+          "versionCode": 1,
+          "permissions": []
+        }
+      },
+      "web": {
+        "bundler": "metro",
+        "output": "static",
+        "favicon": "./assets/images/favicon.png"
+      },
+      "plugins": [
+        "expo-router"
+      ],
+      "experiments": {
+        "typedRoutes": true
+      },
+      "permissions": [
+        "CAMERA",
+        "CAMERA_ROLL"
+      ]
     },
     "plugins": [
-      "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+      "expo-font"
+    ]
   }
 }

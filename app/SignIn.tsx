@@ -90,7 +90,6 @@ const SignIn = ()=> {
             style={styles.TextInput}
             placeholder="Profile"
             placeholderTextColor="gray"
-            secureTextEntry={true}
             onChangeText={value=> profileRef.current=value }
             />
         </View>

@@ -12,7 +12,7 @@ export default function HomeCategory() {
     <View style={styles.bodyContainer}>
         <View style={styles.row}>
           <TouchableOpacity
-            onPress={()=>navigation.navigate('lichhocteacher')}
+            onPress={()=>navigation.navigate('selectGrade')}
            style={styles.item}>
             <View style={styles.icon}>
               <Ionicons name="calendar-outline" size={40} ></Ionicons>
@@ -36,7 +36,7 @@ export default function HomeCategory() {
             <Text style={styles.text}>Xin Nghỉ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}
-            onPress={()=>navigation.navigate('albums')}
+            onPress={()=>navigation.navigate('albumsteacher')}
           >
             <View style={styles.icon}>
             <Ionicons name="images-outline" size={40} ></Ionicons>

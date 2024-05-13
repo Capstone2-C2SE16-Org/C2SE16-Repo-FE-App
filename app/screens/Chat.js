@@ -15,16 +15,18 @@ export default function Chat() {
       getUsers();
   },[]);
 
-  const getUsers = async () => {
-    //fetch users
-    const q = query(usersRef, where('userId', '!=', user?.uid));
-
-    const querySnapshot = await getDocs(q);
-    let data = [];
-    querySnapshot.forEach(doc => {
-      data.push({...doc.data()});
-    });
-    setUsers(data);
+  const getUsers = async () => {  
+    try {
+      const q = query(usersRef, where('userId', '!=', user?.uid));
+      const querySnapshot = await getDocs(q);
+      let data = [];
+      querySnapshot.forEach(doc => {
+        data.push({...doc.data()});
+      });
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
   }
 
   const navigation = useNavigation();

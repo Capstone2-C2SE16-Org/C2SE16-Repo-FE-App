@@ -1,10 +1,11 @@
-import { View, Text,StyleSheet,Image,SafeAreaView,TextInput,Button, TouchableOpacity} from 'react-native'
+import { View, Text,StyleSheet,Image,SafeAreaView,TextInput,Button, TouchableOpacity, ScrollView} from 'react-native'
 import React, { useState } from 'react'
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useRoute } from '@react-navigation/native';
 
 export default function LichHocTeacher() {
   const navigation = useNavigation();
@@ -13,6 +14,9 @@ export default function LichHocTeacher() {
   const [afternoonActivity, setAfternoonActivity] = useState('');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+
+  const route = useRoute();
+  const { grade, className } = route.params;
 
   const handleUpdate = () => {
     // Gửi dữ liệu cập nhật lên server hoặc xử lý theo nhu cầu của bạn
@@ -40,9 +44,10 @@ export default function LichHocTeacher() {
       <Feather name="menu" size={30} color="black" />
     </View>
     {/* Body */}
-    <View style={{backgroundColor:'#fff'}}>
+    <ScrollView style={{backgroundColor:'#fff',marginBottom:100}}>
       <View style={{alignItems:'center',justifyContent:'center',paddingTop:10}}>
-        <Text style={{fontSize:25,fontWeight:'bold',color:'red'}}>KHỐI MẪU GIÁO LỚN</Text>
+        <Text style={{fontSize:25,fontWeight:'bold',color:'red'}}>{grade}</Text>
+        <Text style={{fontSize:25,fontWeight:'bold',color:'red'}}>{className}</Text>
         <Text style={{fontSize:20,fontWeight:'bold',color:'red'}}>Thời gian thực hiện từ 4/3 đến 8/3</Text>
       </View>
       <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={() => setShowPicker(true)}>
@@ -103,7 +108,7 @@ export default function LichHocTeacher() {
       <TouchableOpacity style={styles.button} onPress={handleUpdate}>
         <Text style={styles.buttonText}>Cập nhật</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
     </SafeAreaView>
   )
 }

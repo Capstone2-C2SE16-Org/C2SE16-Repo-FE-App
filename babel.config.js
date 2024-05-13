@@ -1,13 +1,11 @@
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo',
-    'module:metro-react-native-babel-preset'],
+    presets: ['babel-preset-expo'],
     plugins: [
-      // Required for expo-router
-      'expo-router/babel',
-      '@babel/plugin-transform-react-jsx-source',
       'react-native-reanimated/plugin',
+      // Explicitly override JSX transforms to use the modern automatic runtime
+      ['@babel/plugin-transform-react-jsx', { runtime: 'automatic' }],
     ],
   };
 };

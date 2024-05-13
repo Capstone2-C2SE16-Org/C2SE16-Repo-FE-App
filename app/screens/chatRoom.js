@@ -17,7 +17,7 @@ export default function ChatRoom() {
     const {user} = useAuth //logged in user
     console.log('got item data ', item);
     const router = useRouter();
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([1,2,3]);
 
     useEffect(()=>{
       createRoomIfNotExists();

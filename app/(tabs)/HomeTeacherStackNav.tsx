@@ -15,6 +15,10 @@ import SelectStudent from '../screens/Teacher/selectStudent';
 import SelectStudentInfo from '../screens/Teacher/selectStudentInfo';
 import StudentInfo from '../screens/Teacher/studentInfo';
 import LeaveRequestsTeacherScreen from '../screens/Teacher/xinNghi';
+import SelectClassScreen from '../screens/Teacher/selectClass';
+import SelectGradeScreen from '../screens/Teacher/selectGradeScreen';
+import AlbumBodyTeacher from '../../components/componentsTeacher/albumBodyTeacher';
+import AlbumsTeacher from '../screens/Teacher/albumsTeacher';
 const Stack = createStackNavigator();
 
 export default function HomeTeacherStackNav() {
@@ -25,7 +29,17 @@ export default function HomeTeacherStackNav() {
             headerShown:false
         }}
         />
-        <Stack.Screen name='albums' component={Albums}
+        <Stack.Screen name='albumsteacher' component={AlbumsTeacher}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='SelectClass' component={SelectClassScreen}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='selectGrade' component={SelectGradeScreen}
          options={{
             headerShown:false
         }}
