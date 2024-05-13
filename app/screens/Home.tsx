@@ -72,7 +72,9 @@ export default function Home() {
             </View>
             <Text style={styles.text}>Đánh giá</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity style={styles.item}
+            onPress={()=>navigation.navigate('hocphi')}
+          >
             <View style={styles.icon}>
             <Ionicons name="wallet-outline" size={40} ></Ionicons>
             </View>

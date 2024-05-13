@@ -8,6 +8,7 @@ import XinNghi from '../screens/XinNghi';
 import DinhDuong from '../screens/DinhDuong';
 import ContactBook from '../screens/contactBook';
 import ChatRoom from '../screens/chatRoom';
+import HocPhi from '../screens/hocPhi';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,11 @@ export default function HomeStackNav() {
         }}
         />
         <Stack.Screen name='chatroom' component={ChatRoom}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='hocphi' component={HocPhi}
          options={{
             headerShown:false
         }}
