@@ -19,61 +19,69 @@ import SelectClassScreen from '../screens/Teacher/selectClass';
 import SelectGradeScreen from '../screens/Teacher/selectGradeScreen';
 import AlbumBodyTeacher from '../../components/componentsTeacher/albumBodyTeacher';
 import AlbumsTeacher from '../screens/Teacher/albumsTeacher';
+import ListPhoto from '../screens/Teacher/listPhoto';
 const Stack = createStackNavigator();
-
+import { AlbumProvider } from '../../context/AlbumContext'; // Đường dẫn đến file AlbumContext
 export default function HomeTeacherStackNav() {
   return (
-   <Stack.Navigator>
-        <Stack.Screen name='hometeacher' component={HomeTeacher} 
-        options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='albumsteacher' component={AlbumsTeacher}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='SelectClass' component={SelectClassScreen}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='selectGrade' component={SelectGradeScreen}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='lichhocteacher' component={LichHocTeacher}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='selectstudent' component={SelectStudent}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='contactbookteacher' component={ContactBookTeacher}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='thongbaoxinghi' component={LeaveRequestsTeacherScreen}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='selectstudentinfo' component={SelectStudentInfo}
-         options={{
-            headerShown:false
-        }}
-        />
-        <Stack.Screen name='studentinfo' component={StudentInfo}
-         options={{
-            headerShown:false
-        }}
-        />
-   </Stack.Navigator>
+   <AlbumProvider>
+        <Stack.Navigator>
+            <Stack.Screen name='hometeacher' component={HomeTeacher} 
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='albumsteacher' component={AlbumsTeacher}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='SelectClass' component={SelectClassScreen}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='selectGrade' component={SelectGradeScreen}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='lichhocteacher' component={LichHocTeacher}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='selectstudent' component={SelectStudent}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='contactbookteacher' component={ContactBookTeacher}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='thongbaoxinghi' component={LeaveRequestsTeacherScreen}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='selectstudentinfo' component={SelectStudentInfo}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='studentinfo' component={StudentInfo}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='listphoto' component={ListPhoto}
+            options={{
+                headerShown:false
+            }}
+            />
+    </Stack.Navigator>
+   </AlbumProvider>
   )
 }

@@ -62,29 +62,7 @@ export default function TabLayout() {
             }
           }}
           />
-          <Tab.Screen 
-          name="Transaction" 
-          component={Transaction} 
-           options={{
-            tabBarIcon: ({focused})=>{
-              return (
-                <View
-                 style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "rgba(252, 219, 0, 1)",
-                  width: Platform.OS == "ios" ? 50 : 60,
-                  height: Platform.OS == "ios" ? 50 : 60,
-                  top: Platform.OS == "ios" ? -10 : -20,
-                  borderRadius: Platform.OS == "ios" ? 25 : 30
-                 }}
-                >
-                  <FontAwesome name="video-camera" size={24} color="#fff" />
-                </View>
-              )
-            }
-           }}
-          />
+          
           <Tab.Screen
            name="Prices" 
            component={Prices}

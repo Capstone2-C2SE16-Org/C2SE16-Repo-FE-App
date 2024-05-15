@@ -19,31 +19,31 @@ import Checkbox from 'expo-checkbox';
 import { useRouter } from "expo-router";
 import CustomKeyBoardView from "../components/customKeyBoardView";
 import { useAuth } from "../context/AuthContext";
-const SignIn = ()=> {
+const SignIn = () => {
 
-  const [loading,setLoading] = useState(false);
-  const {register} = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { register } = useAuth();
 
   const emailRef = useRef("");
   const usernameRef = useRef("");
   const passwordRef = useRef("");
   const profileRef = useRef("");
-  const handleSignUP = async ()=> {
-    if(!emailRef || !usernameRef.current || !passwordRef.current || !profileRef.current){
-        Alert.alert('Sign Up',"Pls fill all the field");
-        return;
+  const handleSignUP = async () => {
+    if (!emailRef.current || !usernameRef.current || !passwordRef.current || !profileRef.current) {
+      Alert.alert('Sign Up', "Pls fill all the field");
+      return;
     }
     setLoading(true);
-    
-    let response = await register(emailRef.current, passwordRef.current,usernameRef.current,profileRef.current);
+
+    let response = await register(emailRef.current, passwordRef.current, usernameRef.current, profileRef.current);
 
     setLoading(false);
 
     console.log('got resutl:', response);
-    if(!response.success){
+    if (!response.success) {
       Alert.alert('SignUp', response.msg);
     }
-    
+
     //register process
   }
   const router = useRouter();
@@ -52,61 +52,61 @@ const SignIn = ()=> {
       <View style={styles.container}>
         <Image style={styles.image} source={require("../assets/images/Logo.png")} />
         <View style={styles.titleView}>
-            <Text style={styles.title}>Sign Up</Text>
-            <Text style={styles.titleText}>The best playschool for your kid</Text>
+          <Text style={styles.title}>Sign Up</Text>
+          <Text style={styles.titleText}>The best playschool for your kid</Text>
         </View>
         <StatusBar style="auto" />
         <View style={styles.inputView}>
-        <Feather style={styles.icon} name="mail" size={24} color="black" />
-            <TextInput
+          <Feather style={styles.icon} name="mail" size={24} color="black" />
+          <TextInput
             style={styles.TextInput}
             placeholder="Email"
             placeholderTextColor="gray"
-            onChangeText={value=> emailRef.current=value }
-            />
+            onChangeText={value => emailRef.current = value}
+          />
         </View>
         <View style={styles.inputView}>
-        <Ionicons style={styles.icon} name="person-circle-outline" size={25} color="gray"/>
-        <TextInput
+          <Ionicons style={styles.icon} name="person-circle-outline" size={25} color="gray" />
+          <TextInput
             style={styles.TextInput}
             placeholder="UserName"
             placeholderTextColor="gray"
-            onChangeText={value=> usernameRef.current=value }
-            />
+            onChangeText={value => usernameRef.current = value}
+          />
         </View>
         <View style={styles.inputView}>
-        <Ionicons style={styles.icon} name="lock-closed-outline" size={24} color="black" />
-            <TextInput
+          <Ionicons style={styles.icon} name="lock-closed-outline" size={24} color="black" />
+          <TextInput
             style={styles.TextInput}
             placeholder="Password"
             placeholderTextColor="gray"
             secureTextEntry={true}
-            onChangeText={value=> passwordRef.current=value }
-            />
+            onChangeText={value => passwordRef.current = value}
+          />
         </View>
         <View style={styles.inputView}>
-        <Ionicons style={styles.icon} name="person-circle-outline" size={25} color="gray"/>
-            <TextInput
+          <Ionicons style={styles.icon} name="person-circle-outline" size={25} color="gray" />
+          <TextInput
             style={styles.TextInput}
             placeholder="Profile"
             placeholderTextColor="gray"
-            onChangeText={value=> profileRef.current=value }
-            />
+            onChangeText={value => profileRef.current = value}
+          />
         </View>
         <View style={styles.passwordOptions}>
-            <TouchableOpacity>
+          <TouchableOpacity>
             <Text style={styles.forgotPassword}>Forgot Password?</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
         {/* onPress={()=> router.push('/screens/Home')} */}
         <TouchableOpacity style={styles.loginBtn} onPress={handleSignUP} >
-            <Text style={styles.loginText}>Sign Up</Text>
+          <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
-        <View style={{flexDirection:'row',paddingTop:10}}>
-            <Text style={{fontSize:16}}>Have an account?</Text>
-            <Pressable onPress={()=>router.push('/Login')}>
-                <Text style={{fontSize:16,fontWeight:'bold'}}>Sign In</Text>
-            </Pressable>
+        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+          <Text style={{ fontSize: 16 }}>Have an account?</Text>
+          <Pressable onPress={() => router.push('/Login')}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Sign In</Text>
+          </Pressable>
         </View>
       </View>
     </CustomKeyBoardView>
@@ -118,25 +118,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop:50
+    paddingTop: 50
   },
-  
+
   image: {
     marginBottom: 70,
   },
-  titleView:{
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-    paddingBottom:50,
+  titleView: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 50,
   },
-  title:{
-    fontWeight:'bold',
-    fontSize:34,
-    
+  title: {
+    fontWeight: 'bold',
+    fontSize: 34,
+
   },
-  titleText:{
-    fontSize:18,
+  titleText: {
+    fontSize: 18,
   },
   inputView: {
     flexDirection: 'row',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: "center",
   },
-  icon:{
+  icon: {
     marginLeft: 10,
     marginRight: 10,
   },
@@ -157,19 +157,19 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 10,
   },
-  checkboxContainer:{
+  checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   checkbox: {
     margin: 8,
   },
-  passwordOptions:{
-    paddingVertical:10,
+  passwordOptions: {
+    paddingVertical: 10,
 
-},
-  forgotPassword:{
-    color:'gray',
+  },
+  forgotPassword: {
+    color: 'gray',
   },
   loginBtn: {
     width: "50%",

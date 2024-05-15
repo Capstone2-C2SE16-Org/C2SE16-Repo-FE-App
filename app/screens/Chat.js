@@ -23,6 +23,8 @@ export default function Chat() {
       querySnapshot.forEach(doc => {
         data.push({...doc.data()});
       });
+
+      console.log('get data', data);
       setUsers(data);
     } catch (error) {
       console.error("Error fetching users:", error);
