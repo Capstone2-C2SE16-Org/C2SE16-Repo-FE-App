@@ -1,13 +1,22 @@
 import { View, Text, Image,StyleSheet,TouchableOpacity,ScrollView,SafeAreaView, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StatusBar } from 'expo-status-bar'
 import News from '../../components/news'
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../context/AuthContext';
+import { API_URL, useAuth } from '../../context/AuthContextApi';
+import axios from 'axios';
 
 export default function Home() {
   const navigation = useNavigation();
+
+  useEffect(()=>{
+    const  testCall = async () =>{
+      const result  = await axios.get(`${API_URL}/api/student/login`);
+      console.log('result: ',result.data);
+    };
+    testCall();
+  },[]);
   return (
     <SafeAreaView style={{backgroundColor:'#fff'}}>
     <ScrollView style={styles.container}>
@@ -89,7 +98,7 @@ export default function Home() {
         </View>
       </View>
       {/* News */}
-      <View style={{flex:1,paddingBottom:100}}>
+      <View style={{flex:1,paddingBottom:20}}>
         <News />
       </View>
     </ScrollView>

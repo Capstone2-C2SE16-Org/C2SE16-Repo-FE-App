@@ -27,7 +27,7 @@ const News = () => {
 
 const NewsCard = ({item,index})=>{
   return(
-    <View >
+    <View>
       <TouchableOpacity style={styles.itemCard}>
       <Image 
         source={item.image} 
@@ -42,6 +42,7 @@ const NewsCard = ({item,index})=>{
 const styles = StyleSheet.create({
   container:{
     marginHorizontal: 20,
+    paddingBottom:100,
   },
   title:{
     fontSize:hp(3),

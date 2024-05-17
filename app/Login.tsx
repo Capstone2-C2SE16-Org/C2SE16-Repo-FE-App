@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,31 +16,36 @@ import {
 import Checkbox from 'expo-checkbox';
 import { useRouter } from "expo-router";
 import CustomKeyBoardView from "../components/customKeyBoardView";
-import { useAuth } from "../context/AuthContext";
+import { API_URL, useAuth } from "../context/AuthContextApi";
+import axios from "axios";
 const Login = ()=> {
+  const router = useRouter();
   
   const [isChecked, setChecked] = useState(false);
   const [loading,setLoading] = useState(false);
-  const {login} = useAuth();
+  const {onLogin} = useAuth();
 
-  const emailRef = useRef("");
-  const usernameRef = useRef("");
-  const passwordRef = useRef("");
-  const handleLogin = async()=> {
-    if(!emailRef.current || !passwordRef.current){
-        Alert.alert('SignIn',"Pls fill all the field");
-        return;
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
+
+  useEffect(()=>{
+    // const  testCall = async () =>{
+    //   const result  = await axios.get(`${API_URL}/student/login`);
+    //   console.log('result: ',result);
+    // };
+    // testCall();
+  },[]);
+
+  const handleLogin = async () => {
+    const result = await onLogin!(username, password);
+    if (result && result.error) {
+        Alert.alert('Login Failed', result.msg);
+    } else {
+        Alert.alert('Login Successful');
     }
-    setLoading(true);
-    const response = await login(emailRef.current,passwordRef.current);
-    setLoading(false);
-    if(!response.success){
-      Alert.alert('SignIn ',response.msg);
-    }
-  }
-  const router = useRouter();
+};
   return (
-    <CustomKeyBoardView >
+    <SafeAreaView>
       <View style={styles.container}>
         <Image style={styles.image} source={require("../assets/images/Logo.png")} />
         <View style={styles.titleView}>
@@ -52,10 +57,10 @@ const Login = ()=> {
         <Ionicons style={styles.icon} name="person-circle-outline" size={25} color="gray"/>
         <TextInput
             style={styles.TextInput}
-            placeholder="Email"
+            placeholder="Username"
             placeholderTextColor="#003f5c"
-            onChangeText={value=> emailRef.current=value }
-            />
+            onChangeText={(text:string) =>setUsername(text)} value = {username}
+        />
         </View>
         <View style={styles.inputView}>
         <Ionicons style={styles.icon} name="lock-closed-outline" size={24} color="gray" />
@@ -64,7 +69,7 @@ const Login = ()=> {
             placeholder="Password"
             placeholderTextColor="gray"
             secureTextEntry={true}
-            onChangeText={value=> passwordRef.current=value }
+            onChangeText={(text:string) =>setPassword(text)} value = {password} 
             />
         </View>
         <View style={styles.passwordOptions}>
@@ -83,7 +88,7 @@ const Login = ()=> {
         </View>
         {/* onPress={()=> router.push('/screens/Home')} */}
         <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-            <Text style={styles.loginText}>LOGIN</Text>
+            <Text>LOGIN</Text>
         </TouchableOpacity>
         <View style={{flexDirection:'row',paddingTop:10}}>
             <Text style={{fontSize:16}}>Don't have an account?</Text>
@@ -92,7 +97,7 @@ const Login = ()=> {
             </Pressable>
         </View>
       </View>
-    </CustomKeyBoardView>
+    </SafeAreaView>
   );
 }
 
