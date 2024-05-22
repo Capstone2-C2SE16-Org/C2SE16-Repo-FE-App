@@ -3,6 +3,7 @@ import React from 'react'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { useRouter } from 'expo-router';
 import {NewsInfo} from '../constants'
+import { useNavigation } from '@react-navigation/native';
 const News = () => {
   const router = useRouter();
   return (
@@ -18,17 +19,18 @@ const News = () => {
         columnWrapperStyle={{
           justifyContent:'space-between'
         }}
-        renderItem={({item,index})=> <NewsCard  index={index} item={item} />}
+        renderItem={({item,index}) => <NewsCard  index={index} item={item} />}
       />
     </View>
 
   )
 }
 
-const NewsCard = ({item,index})=>{
+const NewsCard = ({ item, index}) => {
+  const navigation = useNavigation();
   return(
     <View>
-      <TouchableOpacity style={styles.itemCard}>
+      <TouchableOpacity style={styles.itemCard} onPress={() =>navigation.navigate('newsdetail')}>
       <Image 
         source={item.image} 
         resizeMode='cover'

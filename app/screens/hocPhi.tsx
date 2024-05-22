@@ -65,12 +65,12 @@ const HocPhi = () => {
                 <Text style={styles.text}>1.500.000 vnđ</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.button} >
+          {/* <TouchableOpacity style={styles.button} >
                 <Text style={{fontSize:20,fontWeight:'bold',color:'white'}}>Thanh toán</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     </SafeAreaView>
-  );
+  );          
 };
 
 const styles = StyleSheet.create({

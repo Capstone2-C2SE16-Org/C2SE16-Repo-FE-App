@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome5, Fontisto, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
-export default function FormSucKhoe() {
+export default function FormSucKhoe({student}) {
   const [chieuCao, setChieuCao] = useState('');
   const [canNang, setCanNang] = useState('');
   const [nhomMau, setNhomMau] = useState('');
@@ -11,10 +11,10 @@ export default function FormSucKhoe() {
   const [tim, setTim] = useState('');
   const [tai, setTai] = useState('');
   const [nhanXet, setNhanXet] = useState('');
+  console.log(student);
 
   const handleCapNhat = () => {
     // Xử lý cập nhật thông tin tại đây
-    console.log('Cập nhật thông tin...');
   };
 
   return (

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,34 +16,32 @@ import {
 import Checkbox from 'expo-checkbox';
 import { useRouter } from "expo-router";
 import CustomKeyBoardView from "../components/customKeyBoardView";
-import { API_URL, useAuth } from "../context/AuthContextApi";
 import axios from "axios";
-const Login = ()=> {
-  const router = useRouter();
-  
-  const [isChecked, setChecked] = useState(false);
-  const [loading,setLoading] = useState(false);
+
+import { API_URL, useAuth } from "../context/AuthContextApi";
+const Login = ({navigation})=> {
   const {onLogin} = useAuth();
+  const [isChecked, setChecked] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [username,setUsername] = useState("");
-  const [password,setPassword] = useState("");
+  const [username,setUsername] = useState('');
+  const [password,setPassword] = useState('');
 
-  useEffect(()=>{
-    // const  testCall = async () =>{
-    //   const result  = await axios.get(`${API_URL}/student/login`);
-    //   console.log('result: ',result);
-    // };
-    // testCall();
-  },[]);
-
-  const handleLogin = async () => {
-    const result = await onLogin!(username, password);
-    if (result && result.error) {
-        Alert.alert('Login Failed', result.msg);
-    } else {
-        Alert.alert('Login Successful');
+  const login = async () => {
+    try {
+      const result = await onLogin!(username, password);
+      if (result && result.data.user && result.data.user.role && result.data.user.role.includes("teacher")) {
+        navigation.navigate('HomeTeacher');
+      } else if (result && result.data.data) {
+        navigation.navigate('HomeStudent');
+      } else {
+        Alert.alert('Login Failed', 'Invalid role or credentials');
+      }
+    } catch (e) {
+      Alert.alert('Login Failed', 'Invalid role or credentials');
     }
-};
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -59,7 +57,8 @@ const Login = ()=> {
             style={styles.TextInput}
             placeholder="Username"
             placeholderTextColor="#003f5c"
-            onChangeText={(text:string) =>setUsername(text)} value = {username}
+            value = {username}
+            onChangeText={(text:string) =>setUsername(text)}
         />
         </View>
         <View style={styles.inputView}>
@@ -68,10 +67,14 @@ const Login = ()=> {
             style={styles.TextInput}
             placeholder="Password"
             placeholderTextColor="gray"
-            secureTextEntry={true}
-            onChangeText={(text:string) =>setPassword(text)} value = {password} 
+            secureTextEntry={!showPassword}
+            value = {password} 
+            onChangeText={(text:string) =>setPassword(text)} 
             />
-        </View>
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons name={showPassword ? "eye-off" : "eye"} size={24} color="gray" />
+          </TouchableOpacity>
+        </View> 
         <View style={styles.passwordOptions}>
             <View style={styles.checkboxContainer}>
             <Checkbox 
@@ -87,15 +90,15 @@ const Login = ()=> {
             </TouchableOpacity>
         </View>
         {/* onPress={()=> router.push('/screens/Home')} */}
-        <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+        <TouchableOpacity style={styles.loginBtn} onPress={login} >
             <Text>LOGIN</Text>
         </TouchableOpacity>
-        <View style={{flexDirection:'row',paddingTop:10}}>
+        {/* <View style={{flexDirection:'row',paddingTop:10}}>
             <Text style={{fontSize:16}}>Don't have an account?</Text>
             <Pressable onPress={()=>router.push('/SignIn')}>
                 <Text style={{fontSize:16,fontWeight:'bold'}}>Sign Up</Text>
             </Pressable>
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );

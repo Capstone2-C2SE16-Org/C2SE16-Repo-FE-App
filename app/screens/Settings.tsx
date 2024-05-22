@@ -1,19 +1,17 @@
 import { View, Text,Image,StyleSheet, TouchableOpacity,Switch,SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Ionicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContextApi';
 
 export default function Settings() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const {logout,user} = useAuth();
-  const handleLogout = async ()=>{
-    await logout();
-  }
+  const {authState, onLogout} = useAuth();
+
   // console.log('user data: ',user);
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
@@ -69,7 +67,7 @@ export default function Settings() {
           <AntDesign name="right" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={{flexDirection:'row',alignItems:'center',justifyContent:'center',}} onPress={handleLogout}>
+      <TouchableOpacity style={{flexDirection:'row',alignItems:'center',justifyContent:'center',}} onPress={onLogout}>
         <Text style={{color:'rgba(0, 0, 0, 0.6)',paddingRight:5,fontSize:20}}>Logout</Text>
         <MaterialIcons name="logout" size={24} color="rgba(0, 0, 0, 0.6)"/>
       </TouchableOpacity>

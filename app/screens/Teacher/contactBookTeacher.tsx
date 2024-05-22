@@ -16,6 +16,7 @@ const ContactBookTeacher = ({ route ,navigation}) => {
   // console.log("Received student data:", student); // Kiểm tra dữ liệu nhận được
   const [showHealth, setShowHealth] = useState(true);
 
+
   const toggleContent = () => {
       setShowHealth(!showHealth);
   };
@@ -63,7 +64,7 @@ const ContactBookTeacher = ({ route ,navigation}) => {
           </View>
           <View style={styles.contentContainer}>
           <View style={{height:1,backgroundColor:'#ccc',marginHorizontal:10}}></View>
-                {showHealth ? ( <FormSucKhoe /> ) : ( <FormHocTap /> )}
+                {showHealth ? ( <FormSucKhoe student={student} /> ) : ( <FormHocTap /> )}
           </View>
         </ScrollView>
 

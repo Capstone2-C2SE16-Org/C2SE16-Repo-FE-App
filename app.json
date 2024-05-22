@@ -17,6 +17,9 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "bundleIdentifier": "com.smartcare.smapp",
       "infoPlist": {
         "NSCameraUsageDescription": "Ứng dụng cần truy cập Camera để bạn có thể chụp ảnh.",

@@ -6,7 +6,6 @@ import Albums from '../screens/Albums';
 import XinNghi from '../screens/XinNghi';
 import DinhDuong from '../screens/DinhDuong';
 import ContactBook from '../screens/contactBook';
-import ChatRoom from '../screens/chatRoom';
 import HomeTeacher from '../screens/Teacher/homeTeacher';
 import LichHocTeacher from '../screens/Teacher/lichHocTeacher';
 import HocSinh from '../screens/Teacher/hocSinh';
@@ -22,6 +21,9 @@ import AlbumsTeacher from '../screens/Teacher/albumsTeacher';
 import ListPhoto from '../screens/Teacher/listPhoto';
 const Stack = createStackNavigator();
 import { AlbumProvider } from '../../context/AlbumContext'; // Đường dẫn đến file AlbumContext
+import NewsDetail from '../screens/newsDetail';
+import ClassroomList from '../screens/Teacher/classRoomList';
+import LichHocList from '../screens/Teacher/lichHocList';
 export default function HomeTeacherStackNav() {
   return (
    <AlbumProvider>
@@ -51,7 +53,7 @@ export default function HomeTeacherStackNav() {
                 headerShown:false
             }}
             />
-            <Stack.Screen name='selectstudent' component={SelectStudent}
+            <Stack.Screen name='studentList' component={SelectStudent}
             options={{
                 headerShown:false
             }}
@@ -62,6 +64,16 @@ export default function HomeTeacherStackNav() {
             }}
             />
             <Stack.Screen name='thongbaoxinghi' component={LeaveRequestsTeacherScreen}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='lichHocList' component={LichHocList}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='classroomlist' component={ClassroomList}
             options={{
                 headerShown:false
             }}
@@ -77,6 +89,11 @@ export default function HomeTeacherStackNav() {
             }}
             />
             <Stack.Screen name='listphoto' component={ListPhoto}
+            options={{
+                headerShown:false
+            }}
+            />
+            <Stack.Screen name='newsdetail' component={NewsDetail}
             options={{
                 headerShown:false
             }}

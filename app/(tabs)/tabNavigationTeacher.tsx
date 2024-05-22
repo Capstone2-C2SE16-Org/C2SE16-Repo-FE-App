@@ -28,15 +28,15 @@ const Tab =createBottomTabNavigator();
     }
   }
   
-export default function TabLayout() {
+export default function TabLayoutTeacher() {
   const colorScheme = useColorScheme();
   
   return (
     // <NavigationContainer independent={true} >
        <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen 
-          name="Home-Nav" 
-          component={HomeStackNav} 
+          name="Home-Teacher" 
+          component={HomeTeacherStackNav} 
           options={{
             tabBarIcon: ({focused})=>{
               return (
@@ -91,10 +91,6 @@ export default function TabLayout() {
             }
           }}
           />
-          {/* <Tab.Screen
-            name='homeTeacherNav'
-            component={HomeTeacherStackNav}
-          /> */}
        </Tab.Navigator>
     //  </NavigationContainer>
   );

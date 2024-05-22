@@ -1,98 +1,106 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView,Image  } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, ActivityIndicator, FlatList } from 'react-native';
+import { MaterialIcons, Feather } from '@expo/vector-icons';
+import axios from 'axios';
+import { API_URL } from '../../../context/AuthContextApi';
 
-const studentsInfo = [
-  { name:'Đỗ Tiến Thành',sex:'Nam',image:require('../../../assets/images/avatarSelect.png'),birthday:'01/01/2020',nation:'Kinh',
-    nameParent:'Đỗ Tiến Lên',sexParent:'Nam',birthdayParent:'01/01/2020',adress:'254 Đ Nguyễn Văn Linh,Thanh Khê, Đà Nẵng, Việt Nam',phone:'01234567',Email:'abc@gmail.com'
-   },
-  { name:'Nguyễn Như Ngọc',sex:'Nữ',image:require('../../../assets/images/avatarSelect.png'),birthday:'05/05/2020',nation:'Kinh',
-    nameParent:'Nguyễn Như Hạnh',sexParent:'Nữ',birthdayParent:'01/01/2020',adress:'111 Nguyễn Trãi,Thanh Khê, Đà Nẵng, Việt Nam',phone:'0999999999',Email:'abc@gmail.com'
-  },
-  { name:'Võ Văn Hổ',sex:'Nam',image:require('../../../assets/images/avatarSelect.png'),birthday:'03/3/2020',nation:'Kmer',
-   nameParent:'Võ Văn Lộc',sexParent:'Nam',birthdayParent:'01/01/2020',adress:'137 Đ Nguyễn Văn Linh,Thanh Khê, Đà Nẵng, Việt Nam',phone:'1092039019',Email:'hovo@gmail.com'
-  },
-];
+const SelectStudentInfo = ({ navigation, route }) => {
 
-const SelectStudentInfo = ({ navigation}) => {
+  console.log("Route params:", route.params);
+
+  if (!route.params || !route.params.classroomId) {
+    // Nếu không có params hoặc không có classroomId, hiển thị thông báo lỗi
+    return <Text>Lỗi: Thông tin lớp học không có sẵn!</Text>; 
+  }
+
+  const { classroomId } = route.params;
+  const [studentsInfo, setStudentsInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/classrooms/${classroomId}/students`);
+        setStudentsInfo(response.data.students);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch students", error);
+        setLoading(false);
+      }
+    };
+    fetchStudents();
+  }, [classroomId]);
+
   const handleSelectStudentInfo = (studentInfo) => {
-    // console.log("Sending student data:", student);  // In dữ liệu trước khi gửi
-    navigation.navigate('studentinfo', { studentInfo});
+    navigation.navigate('StudentInfo', { studentInfo, classroomId });
   };
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
   return (
-    <SafeAreaView>
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <View style={{flexDirection:'row'}}>
-        <MaterialIcons name="arrow-back-ios" size={30} color="black" onPress={()=>navigation.goBack()} />
-        </View>
-        <Text style={{fontSize:20,fontWeight:'bold'}}>Quản lý học sinh</Text>
+        <MaterialIcons name="arrow-back-ios" size={30} color="black" onPress={() => navigation.goBack()} />
+        <Text style={styles.headerTitle}>Quản lý học sinh</Text>
         <Feather name="menu" size={30} color="black" />
       </View>
-      <View style={styles.body}>
-        <Text style={styles.title}>Chọn Học sinh của bạn:</Text>
-        {studentsInfo.map((studentInfo, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.studentItem}
-            onPress={() => handleSelectStudentInfo(studentInfo)}
-        
-          >
-            <Image source={studentInfo.image} style={styles.avatar} />
-            <View style={{flexDirection:'column',paddingLeft:25}}>
-              <Text style={styles.textName}>{studentInfo.name}</Text>
-              <Text style={styles.textNickName}>{studentInfo.sex}</Text>
-              <Text style={styles.textNickName}>{studentInfo.birthday}</Text>
+      <FlatList
+        data={studentsInfo}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.studentItem} onPress={() => handleSelectStudentInfo(item)}>
+            <Image source={{ uri: item.profile_image }} style={styles.avatar} />
+            <View style={styles.infoContainer}>
+              <Text style={styles.textName}>{item.name}</Text>
+              <Text style={styles.textNickName}>{item.nickname}</Text>
             </View>
           </TouchableOpacity>
-        ))}
-      </View>
-    </View>
+        )}
+      />
     </SafeAreaView>
-
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    
+    flex: 1,
+    backgroundColor: '#fff'
   },
-  header:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    height:50,
-    backgroundColor:"#c9c9c9",
-    paddingHorizontal:20,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 20,
+    backgroundColor: '#c9c9c9'
   },
-  body:{
-    paddingHorizontal:25,
-  },
-  title: {
-    paddingTop:20,
+  headerTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontWeight: 'bold'
   },
   studentItem: {
-    flexDirection:'row',
-    alignItems:'center',
+    flexDirection: 'row',
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginBottom: 10,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
   },
-  textName:{
-    fontSize:20,
-    fontWeight:'bold'
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25
   },
-  textNickName:{
-    fontSize:16,
-    color:'rgba(0, 0, 0, 0.5)',
-    paddingTop:5
+  infoContainer: {
+    marginLeft: 20
+  },
+  textName: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  textNickName: {
+    fontSize: 16,
+    color: 'rgba(0, 0, 0, 0.6)'
   }
 });
 

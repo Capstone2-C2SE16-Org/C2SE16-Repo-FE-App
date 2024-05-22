@@ -3,7 +3,6 @@ import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../context/AuthContext';
 
 export default function HomeCategory() {
   const navigation = useNavigation();
@@ -12,7 +11,7 @@ export default function HomeCategory() {
     <View style={styles.bodyContainer}>
         <View style={styles.row}>
           <TouchableOpacity
-            onPress={()=>navigation.navigate('selectGrade')}
+            onPress={()=>navigation.navigate('classroomlist', { screenName: 'Calendar' })}
            style={styles.item}>
             <View style={styles.icon}>
               <Ionicons name="calendar-outline" size={40} ></Ionicons>
@@ -20,8 +19,8 @@ export default function HomeCategory() {
             <Text style={styles.text}>Lịch Học</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}
-            onPress={()=>navigation.navigate('selectstudent')}
-          >
+            onPress={()=>navigation.navigate('classroomlist', { screenName: 'Contact Book' })}
+            >
             <View style={styles.icon}>
             <Ionicons  name="reader-outline" size={40} ></Ionicons>
             </View>
@@ -47,8 +46,8 @@ export default function HomeCategory() {
 
         <View style={styles.row2}>
           <TouchableOpacity style={styles.item}
-            onPress={()=>navigation.navigate('selectstudentinfo')}
-          >
+            onPress={()=>navigation.navigate('classroomlist', { screenName: 'Student' })}
+            >
             <View style={styles.icon}>
                 <Image 
                 source={require('../../assets/images/Boy.png')} 

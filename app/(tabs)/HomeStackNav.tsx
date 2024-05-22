@@ -1,21 +1,21 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../screens';
 import Albums from '../screens/Albums';
 import LichHoc from '../screens/LichHoc';
 import XinNghi from '../screens/XinNghi';
 import DinhDuong from '../screens/DinhDuong';
 import ContactBook from '../screens/contactBook';
-import ChatRoom from '../screens/chatRoom';
+// import ChatRoom from '../screens/chatRoom';
 import HocPhi from '../screens/hocPhi';
+import HomeStudent from '../screens/Home';
 
 const Stack = createStackNavigator();
 
 export default function HomeStackNav() {
   return (
    <Stack.Navigator>
-        <Stack.Screen name='home' component={Home} 
+        <Stack.Screen name='home' component={HomeStudent} 
         options={{
             headerShown:false
         }}
@@ -45,11 +45,11 @@ export default function HomeStackNav() {
             headerShown:false
         }}
         />
-        <Stack.Screen name='chatroom' component={ChatRoom}
+        {/* <Stack.Screen name='chatroom' component={ChatRoom}
          options={{
             headerShown:false
         }}
-        />
+        /> */}
         <Stack.Screen name='hocphi' component={HocPhi}
          options={{
             headerShown:false

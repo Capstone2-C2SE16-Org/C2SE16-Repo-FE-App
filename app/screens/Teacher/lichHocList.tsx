@@ -4,54 +4,63 @@ import { MaterialIcons, Feather } from '@expo/vector-icons';
 import axios from 'axios';
 import { API_URL, useAuth } from '../../../context/AuthContextApi';
 
-const LeaveRequestsTeacherScreen = ({ navigation }) => {
-    const [requests, setRequests] = useState([]);
+const LichHocList = ({ navigation, route }) => {
+    const { classroom } = route.params
+    console.log(classroom)
+    const [schedules, setSchedules] = useState([]);
     const { authState } = useAuth();
     const manager_id = authState?.userData.manager_id;
     const [loading, setLoading] = useState(true);
+    const getTodayDateGMT7 = () => {
+        const now = new Date(); // Lấy ngày và giờ hiện tại theo múi giờ địa phương
+        const nowUTC = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),
+            now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds()); // Chuyển sang UTC
+        return new Date(nowUTC + (7 * 60 * 60 * 1000)); // Chuyển sang GMT+7
+    };
+
+    const TodayDateGMT7 = getTodayDateGMT7().toISOString().slice(0, 10);
+    console.log(TodayDateGMT7)
+
+    const getDayName = (dateString) => {
+        const date = new Date(dateString);
+        const dayOfWeek = date.getDay();
+        const weekdays = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+        return weekdays[dayOfWeek];
+    };
 
     useEffect(() => {
-        axios.get(`${API_URL}student-requests`, {
+        axios.get(`${API_URL}classrooms/${classroom}/schedules/current`, {
             headers: {
                 'Authorization': `Bearer ${authState?.token}`
             }
         })
             .then(response => {
                 console.log("thanh cong");
-                setRequests(response.data);
+                setSchedules(response.data);
                 setLoading(false);
             })
             .catch(error => {
-                console.error("Failed to fetch classrooms", error);
+                console.error("Failed to fetch schedule", error);
                 setLoading(false);
             });
     }, []);
 
     const handleApprove = (id) => {
-        axios.delete(`${API_URL}student-requests/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${authState?.token}`
-            }
-        })
-        .then(response => {
-            alert('Yêu cầu đã được xóa thành công.');
-            setRequests(currentRequests => currentRequests.filter(request => request.id !== id));
-        })
-        .catch(error => {
-            console.error('Lỗi khi xóa yêu cầu:', error);
-        });        
+
     }
 
     const renderItem = ({ item }) => (
         <View style={styles.requestItem}>
-            <Text style={styles.text}>Học sinh: {item.student.name}</Text>
-            <Text style={styles.text}>Ngày: {item.leave_date}</Text>
-            <Text style={styles.text}>Lý do: {item.reason}</Text>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Pressable style={styles.button} onPress={() => handleApprove(item.id)}>
-                    <Text style={styles.buttonText}>Phê duyệt</Text>
-                </Pressable>
-            </View>
+            <Text style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                fontStyle: 'italic',
+                marginBottom: 25
+            }}>Thứ: {getDayName(item.date)}</Text>
+            <Text style={styles.text}>Sáng: {item.morning}</Text>
+            <Text style={styles.text}>Trưa: {item.noon}</Text>
+            <Text style={styles.text}>Tối: {item.afternoon}</Text>
+
         </View>
     );
 
@@ -67,7 +76,7 @@ const LeaveRequestsTeacherScreen = ({ navigation }) => {
                 <Feather name="menu" size={30} color="black" />
             </View>
             <FlatList
-                data={requests.filter(request => request.manager_id == manager_id)}
+                data={schedules.filter(schedule => schedule.date >= TodayDateGMT7)}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={styles.container}
@@ -103,7 +112,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        marginBottom: 5
+        marginBottom: 15
     },
     button: {
         width: 100,
@@ -119,4 +128,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LeaveRequestsTeacherScreen;
+export default LichHocList;
