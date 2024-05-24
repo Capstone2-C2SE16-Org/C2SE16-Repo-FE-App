@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image, SafeAreaView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -10,16 +10,39 @@ import { Foundation } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import FormSucKhoe from '../../../components/componentsTeacher/formSucKhoe';
 import FormHocTap from '../../../components/componentsTeacher/formHocTap';
-import YourComponent from './test';
+import axios from 'axios';
+import { API_URL, useAuth } from '../../../context/AuthContextApi';
 const ContactBookTeacher = ({ route ,navigation}) => {
-  const { student } = route.params;
-  // console.log("Received student data:", student); // Kiểm tra dữ liệu nhận được
+  const { studentId,classroomId } = route.params;
+  const [contactBookData, setContactBookData] = useState(null);
   const [showHealth, setShowHealth] = useState(true);
+  const { authState } = useAuth();
+  
+  useEffect(() => {
+    const fetchContactBookData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}classrooms/${classroomId}/students/${studentId}/contact-book`, {
+          headers: {
+            Authorization: `Bearer ${authState?.token}`
+          }
+        });
+        console.log(response.data)
+        setContactBookData(response.data);
+      } catch (error) {
+        console.error('Error fetching contact book data:', error);
+      }
+    };
 
+    fetchContactBookData();
+  }, [classroomId, studentId]);
 
   const toggleContent = () => {
-      setShowHealth(!showHealth);
+    setShowHealth(!showHealth);
   };
+
+  if (!contactBookData) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <SafeAreaView>
         <View style={styles.header}>
@@ -33,15 +56,15 @@ const ContactBookTeacher = ({ route ,navigation}) => {
         <View style={styles.headerInfo}>
             <View style={{alignItems:'center'}}>
               <Image source={require('../../../assets/images/Birthday.png')} />
-              <Text>{student.birthday}</Text>
+              <Text>{contactBookData.date_of_birth}</Text>
             </View>
             <View style={{alignItems:'center'}}>
-              <Image source={require('../../../assets/images/profilestudent.png')} />
-              <Text style={{fontSize:20,fontWeight:'bold',paddingTop:10}}>{student.name}</Text>
+              <Image source={{ uri: contactBookData.profile_image }}  style={styles.avatarImage}/>
+              <Text style={{fontSize:20,fontWeight:'bold',paddingTop:10}}>{contactBookData.student_name}</Text>
             </View>
             <View style={{alignItems:'center'}}>
               <Image source={require('../../../assets/images/Capricorn.png')} />
-              <Text>{student.nickname}</Text>
+              <Text>{contactBookData.nickname}</Text>
             </View>
           </View>
         {/* Hiển thị thông tin của học sinh */}
@@ -64,7 +87,10 @@ const ContactBookTeacher = ({ route ,navigation}) => {
           </View>
           <View style={styles.contentContainer}>
           <View style={{height:1,backgroundColor:'#ccc',marginHorizontal:10}}></View>
-                {showHealth ? ( <FormSucKhoe student={student} /> ) : ( <FormHocTap /> )}
+                {showHealth ? 
+                ( <FormSucKhoe studentId={studentId} healthData={contactBookData.health_information} classroomId={classroomId} /> )
+                 : 
+                ( <FormHocTap studentId={studentId} studyData={contactBookData} classroomId={classroomId}/> )}
           </View>
         </ScrollView>
 
@@ -137,6 +163,11 @@ const styles = StyleSheet.create({
   mealSchedule: {
     paddingTop:20,
     // Phần mã để hiển thị lịch ăn
+  },
+  avatarImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
 

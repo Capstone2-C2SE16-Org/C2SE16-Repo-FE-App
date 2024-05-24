@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Pressable, ActivityIndicator, FlatList, Alert } from 'react-native';
+import React, { useState, useEffect, } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, Pressable, ActivityIndicator, FlatList, Alert, TouchableOpacity,Image } from 'react-native';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import axios from 'axios';
 import { API_URL, useAuth } from '../../../context/AuthContextApi';
@@ -50,20 +50,49 @@ const LichHocList = ({ navigation, route }) => {
     }
 
     const renderItem = ({ item }) => (
-        <View style={styles.requestItem}>
-            <Text style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                fontStyle: 'italic',
-                marginBottom: 25
-            }}>Thứ: {getDayName(item.date)}</Text>
-            <Text style={styles.text}>Sáng: {item.morning}</Text>
-            <Text style={styles.text}>Trưa: {item.noon}</Text>
-            <Text style={styles.text}>Tối: {item.afternoon}</Text>
+        <TouchableOpacity
+          style={styles.requestItem}
+          onPress={() => navigation.navigate('lichhocteacher', {
+            classroomId: item.pivot.classroom_id,
+            scheduleId: item.id,
+            date: item.date,
+            morningActivity: item.morning,
+            noonActivity: item.noon,
+            afternoonActivity: item.afternoon
+          })}
+        >
+          <Text style={styles.title}>{getDayName(item.date)}</Text>
+          {/* <Text style={styles.text}>Sáng: {item.morning}</Text>
+          <Text style={styles.text}>Trưa: {item.noon}</Text>
+          <Text style={styles.text}>Chiều: {item.afternoon}</Text> */}
 
+          <View style={styles.viewSchedule}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.textTitle}>Sáng</Text>
+          <Image source={require('../../../assets/images/Sunrise.png')} />
         </View>
-    );
-
+        <View style={styles.line}></View>
+        <Text style={styles.textContent}>{item.morning}</Text>
+      </View>
+      <View style={styles.viewSchedule}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.textTitle}>Trưa</Text>
+          <Image source={require('../../../assets/images/Midday.png')} />
+        </View>
+        <View style={styles.line}></View>
+        <Text style={styles.textContent}>{item.noon}</Text>
+      </View>
+      <View style={styles.viewSchedule}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.textTitle}>Chiều</Text>
+          <Image source={require('../../../assets/images/Afternoon.png')} />
+        </View>
+        <View style={styles.line}></View>
+        <Text style={styles.textContent}>{item.afternoon}</Text>
+      </View>
+        </TouchableOpacity>
+      );
+      
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
     }
@@ -72,7 +101,7 @@ const LichHocList = ({ navigation, route }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.header}>
                 <MaterialIcons name="arrow-back-ios" size={30} color="black" onPress={() => navigation.goBack()} />
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Xin nghỉ</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Lịch Học</Text>
                 <Feather name="menu" size={30} color="black" />
             </View>
             <FlatList
@@ -87,7 +116,6 @@ const LichHocList = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 20,
         backgroundColor: '#fff'
     },
     header: {
@@ -101,10 +129,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 10
+        paddingLeft:10,
     },
     requestItem: {
-        padding: 15,
+        paddingTop:10,
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#ccc',
@@ -125,7 +153,36 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 18,
         fontWeight: '500'
-    }
+    },
+    viewSchedule: {
+        backgroundColor: '#ffffff',
+        width: 400,
+        padding: 10,
+        marginTop: 15,
+        marginHorizontal: 13,
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 8,
+      },
+      textTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingRight: 15,
+      },
+      textContent: {
+        fontSize: 20,
+        marginTop: 10
+      },
+      line: {
+        height: 1,
+        backgroundColor: '#ccc',
+        marginHorizontal: 3,
+      },
 })
 
 export default LichHocList;

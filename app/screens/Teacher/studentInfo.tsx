@@ -7,7 +7,7 @@ import { API_URL, useAuth } from '../../../context/AuthContextApi';
 const StudentInfo = ({ route, navigation }) => {
   const { studentId, classroomId } = route.params; 
   const { authState } = useAuth();
-
+ 
   const [studentDetails, setStudentDetails] = useState(null);
   const [loading, setLoading] = useState(true);
 

@@ -8,7 +8,6 @@ import HocTap from '../../components/hocTap';
 import { API_URL, useAuth } from '../../context/AuthContextApi';
 
 export default function ContactBook() {
-  console.log("Im here")
   const { authState } = useAuth(); 
   const { userData } = authState; 
   

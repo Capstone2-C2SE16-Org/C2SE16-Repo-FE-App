@@ -33,7 +33,7 @@ const ClassroomList = ({ navigation, route }) => {
         navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId});       
          break;
       case "Calendar":
-        navigation.navigate("lichHocList", { classroom: classroomId});       
+        navigation.navigate("lichHocList", { classroom: classroomId});
         break;
       case "Contact Book":
         navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId});       

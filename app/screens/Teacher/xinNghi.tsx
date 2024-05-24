@@ -34,7 +34,7 @@ const LeaveRequestsTeacherScreen = ({ navigation }) => {
             }
         })
         .then(response => {
-            alert('Yêu cầu đã được xóa thành công.');
+            alert('Yêu cầu đã được phê duyệt thành công.');
             setRequests(currentRequests => currentRequests.filter(request => request.id !== id));
         })
         .catch(error => {

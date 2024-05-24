@@ -9,11 +9,11 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my_jwt';
-export const API_URL = 'http://192.168.1.9:8000/api/'
+// export const API_URL = 'http://192.168.1.9:8000/api/'
 // cf
 // export const API_URL = 'http://172.26.214.44:8000/api/';
 // home
-// export const API_URL = 'http://192.168.0.127:8000/api/';
+export const API_URL = 'http://192.168.0.127:8000/api/';
 
 const AuthContext = createContext<AuthProps>({});
 

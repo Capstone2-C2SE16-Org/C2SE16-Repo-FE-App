@@ -13,7 +13,7 @@ const SelectStudent = ({ navigation, route }) => {
         navigation.navigate('studentinfo', { studentId: student.id, classroomId: classroomId });
         break;
       case "Contact Book":
-        navigation.navigate('contactbookteacher', { student: student.id});
+        navigation.navigate('contactbookteacher', { studentId: student.id,classroomId: classroomId});
       default:
         break;
     }

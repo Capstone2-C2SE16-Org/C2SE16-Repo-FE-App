@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons, FontAwesome5, Fontisto, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import axios from 'axios';
+import { API_URL, useAuth } from '../../context/AuthContextApi';
 
-export default function FormSucKhoe({student}) {
-  const [chieuCao, setChieuCao] = useState('');
-  const [canNang, setCanNang] = useState('');
-  const [nhomMau, setNhomMau] = useState('');
-  const [diUng, setDiUng] = useState('');
-  const [mat, setMat] = useState('');
-  const [tim, setTim] = useState('');
-  const [tai, setTai] = useState('');
-  const [nhanXet, setNhanXet] = useState('');
-  console.log(student);
+export default function FormSucKhoe({studentId, healthData, classroomId}) {
+  const { authState } = useAuth();
 
-  const handleCapNhat = () => {
-    // Xử lý cập nhật thông tin tại đây
+  const [height, setHeight] = useState(healthData.height || '');
+  const [weight, setWeight] = useState(healthData.weight || '');
+  const [blood_group, setBlood_group] = useState(healthData.blood_group || '');
+  const [blood_pressure, setBlood_pressure] = useState(healthData.blood_pressure || '');
+  const [vision_test, setVision_test] = useState(healthData.vision_test || '');
+  const [allergies, setAllergies] = useState(healthData.allergies || '');
+  console.log(studentId);
+
+  const handleCapNhatSucKhoe = async () => {
+    try {
+      await axios.patch(`${API_URL}classrooms/${classroomId}/students/${studentId}/contact-book/health`, {
+        height,
+        weight,
+        blood_group,
+        blood_pressure,
+        vision_test,
+        allergies
+      }, {
+        headers: {
+          Authorization: `${authState?.token}`
+        }
+      });
+      alert('Cập nhật thông tin sức khoẻ thành công!');
+    } catch (error) {
+      console.error('Error updating health data:', error);
+      alert('Cập nhật thông tin sức khoẻ thất bại!');
+    }
   };
 
   return (
@@ -27,8 +46,8 @@ export default function FormSucKhoe({student}) {
         </View>
           <TextInput
             style={styles.textInput}
-            value={chieuCao}
-            onChangeText={setChieuCao}
+            value={height.toString()}
+            onChangeText={setHeight}
             keyboardType="default"
             placeholder="Nhập..."
           />
@@ -41,8 +60,8 @@ export default function FormSucKhoe({student}) {
         </View>
             <TextInput
             style={styles.textInput}
-            value={canNang}
-            onChangeText={setCanNang}
+            value={weight.toString()}
+            onChangeText={setWeight}
             placeholder="Nhập..."
             />
       </View>
@@ -54,8 +73,8 @@ export default function FormSucKhoe({student}) {
         </View>
           <TextInput
             style={styles.textInput}
-            value={nhomMau}
-            onChangeText={setNhomMau}
+            value={blood_group}
+            onChangeText={setBlood_group}
             placeholder="Nhập..."
           />
       </View>
@@ -67,8 +86,8 @@ export default function FormSucKhoe({student}) {
         </View>
           <TextInput
             style={styles.textInput}
-            value={diUng}
-            onChangeText={setDiUng}
+            value={allergies}
+            onChangeText={setAllergies}
             placeholder="Nhập..."
           />
       </View>
@@ -80,53 +99,14 @@ export default function FormSucKhoe({student}) {
         </View>
           <TextInput
             style={styles.textInput}
-            value={mat}
-            onChangeText={setMat}
+            value={vision_test}
+            onChangeText={setVision_test}
             placeholder="Nhập..."
           />
       </View>
 
-      <View style={styles.info}>
-        <View style={styles.infoWrap}>
-        <FontAwesome name="heartbeat" size={30} color="black" />
-          <Text style={{ fontSize: 20, paddingLeft: 5 }}>Tim</Text>
-        </View>
-          <TextInput
-            style={styles.textInput}
-            value={tim}
-            onChangeText={setTim}
-            placeholder="Nhập..."
-          />
-      </View>
-
-      <View style={styles.info}>
-        <View style={styles.infoWrap}>
-        <Ionicons name="ear-sharp" size={30} color="black" />
-          <Text style={{ fontSize: 20, paddingLeft: 5 }}>Tai</Text>
-        </View>
-          <TextInput
-            style={styles.textInput}
-            value={tai}
-            onChangeText={setTai}
-            placeholder="Nhập..."
-          />
-      </View>
-
-      {/* Thêm các trường thông tin và TextInput tương tự ở đây */}
-
-      <Text style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>Nhận xét của giáo viên</Text>
-      <View style={styles.comment}>
-        <TextInput
-          style={{ flex: 1 }}
-          value={nhanXet}
-          onChangeText={setNhanXet}
-          placeholder="Nhập nhận xét..."
-          multiline={true}
-          numberOfLines={4}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleCapNhat}>
+      
+      <TouchableOpacity style={styles.button} onPress={handleCapNhatSucKhoe}>
         <Text style={styles.buttonText}>Cập nhật</Text>
       </TouchableOpacity>
     </View>
@@ -138,14 +118,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   infoWrap: {
     alignItems: 'center',
     flexDirection: 'row',
   },
   textInput: {
-    width: 100,
+    width: 120,
     height:30,
     borderWidth: 0.1,
     borderColor: 'black',

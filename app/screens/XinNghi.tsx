@@ -8,7 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import moment from 'moment';
 import 'moment/locale/vi';
-import { useAuth } from '../../context/AuthContextApi';
+import { API_URL, useAuth } from '../../context/AuthContextApi';
 
 moment.locale('vi'); // Đặt ngôn ngữ mặc định là tiếng Việt
 
@@ -50,9 +50,9 @@ export default function XinNghi() {
             manager_id: 7, // Thay thế bằng ID thực tế của giáo viên hoặc người quản lý
             status: false
         };
-
+API_URL
         try {
-            const response = await axios.post('http://172.26.214.44:8000/api/student-requests', requestData, {
+            const response = await axios.post(`${API_URL}student-requests`, requestData, {
                 headers: {
                     'Authorization': `Bearer ${userData?.token}`
                 }
