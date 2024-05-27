@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity } from 'r
 import React from 'react'
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth, API_URL } from '../../context/AuthContextApi';
 
 const HocPhi = () => {
     const navigation = useNavigation();
+    const { authState } = useAuth();
 
   // console.log("Received student data:", student); // Kiểm tra dữ liệu nhận được
   return (
@@ -38,11 +40,11 @@ const HocPhi = () => {
             </View>
             <View style={styles.containerText}>
                 <Text style={styles.text}>Mã học sinh:</Text>
-                <Text style={styles.text}>01</Text>
+                <Text style={styles.text}>{authState?.userData?.student_id}</Text>
             </View>
             <View style={styles.containerText}>
                 <Text style={styles.text}>Tên học sinh:</Text>
-                <Text style={styles.text}>Đỗ Tiến Thành</Text>
+                <Text style={styles.text}>{authState?.userData?.name}</Text>
             </View>
             <View style={styles.containerText}>
                 <Text style={styles.text}>Học phí:</Text>
@@ -58,11 +60,11 @@ const HocPhi = () => {
             </View>
             <View style={styles.containerText}>
                 <Text style={styles.text}>Tiền thừa:</Text>
-                <Text style={styles.text}>100.000 vnđ</Text>
+                <Text style={styles.text}>0 vnđ</Text>
             </View>
             <View style={styles.containerText}>
                 <Text style={styles.text}>Tổng tiền:</Text>
-                <Text style={styles.text}>1.500.000 vnđ</Text>
+                <Text style={styles.text}>1.600.000 vnđ</Text>
             </View>
           </View>
           {/* <TouchableOpacity style={styles.button} >

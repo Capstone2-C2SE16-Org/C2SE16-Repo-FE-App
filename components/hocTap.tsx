@@ -17,7 +17,7 @@ export default function HocTap({ contactBook }) {
       </View>
       <Text style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>Nhận xét của giáo viên</Text>
       <View style={styles.comment}>
-        <Text style={{ padding: 10, fontSize: 16 }}>{contactBook.comments}</Text>
+        <Text style={{ padding: 10, fontSize: 16 }}>{contactBook.comment}</Text>
       </View>
     </View>
   );

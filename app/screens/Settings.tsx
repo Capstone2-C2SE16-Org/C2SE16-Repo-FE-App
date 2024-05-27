@@ -68,7 +68,7 @@ export default function Settings() {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={{flexDirection:'row',alignItems:'center',justifyContent:'center',}} onPress={onLogout}>
-        <Text style={{color:'rgba(0, 0, 0, 0.6)',paddingRight:5,fontSize:20}}>Logout</Text>
+        <Text style={{color:'rgba(0, 0, 0, 0.6)',paddingRight:5,fontSize:20}}>Đăng xuất</Text>
         <MaterialIcons name="logout" size={24} color="rgba(0, 0, 0, 0.6)"/>
       </TouchableOpacity>
     </SafeAreaView>

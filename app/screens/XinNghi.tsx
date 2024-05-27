@@ -50,7 +50,6 @@ export default function XinNghi() {
             manager_id: 7, // Thay thế bằng ID thực tế của giáo viên hoặc người quản lý
             status: false
         };
-API_URL
         try {
             const response = await axios.post(`${API_URL}student-requests`, requestData, {
                 headers: {
@@ -75,7 +74,7 @@ API_URL
             </View>
             {/* Body */}
             <View style={styles.container}>
-                <View style={{ backgroundColor: '#FFE4B2', height: 60, justifyContent: 'center', paddingLeft: 10 }}>
+                <View style={{ backgroundColor: '#ccc', height: 60, justifyContent: 'center', paddingLeft: 10 }}>
                     <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'red' }}>XIN NGHỈ PHÉP:</Text>
                 </View>
                 <Text style={{ fontSize: 20 }}>Lý do xin nghỉ</Text>

@@ -1,38 +1,48 @@
   import { View, Text ,FlatList,StyleSheet,Image, TouchableOpacity} from 'react-native'
   import React from 'react'
   import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-  import { useRouter } from 'expo-router';
-  import{AlbumList} from '../constants'
+import { useNavigation } from '@react-navigation/native';
+import { API_ADDRESS } from '../context/AuthContextApi';
 
-  const AlbumBody = () => {
-      const router = useRouter();
+  const AlbumBody = ({albums}) => {
+    const navigation = useNavigation()
       return (
         <View style={styles.container}>  
           <FlatList
-            data={AlbumList}
+            data={albums}
             numColumns={1}
-            keyExtractor={item=>item.name}
+            keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{paddingBottom:40,paddingTop:20,}}
-            renderItem={({item,index})=> <AlbumCard  index={index} item={item} />}
+            renderItem={({item,index})=> <AlbumCardShow  index={index} item={item} navigation={navigation} />}
           />
         </View>
       )
   }
-  const AlbumCard = ({item,index})=>{
+  const AlbumCardShow = ({item,index,navigation})=>{
+
+    console.log(item)
+  const uri = API_ADDRESS + item.image
+  console.log(uri)
       return(
         <View >
-          <TouchableOpacity style={styles.itemCard}>
+          <TouchableOpacity
+            onPress={()=>
+              // , { albumName: item.name, classroomId: item.classroom_id, albumId:item.id }
+              // console.log(`Navigating to viewlistphoto with albumName: ${item.name}, classroomId: ${item.classroom_id}, albumId: ${item.id}`)}
+             navigation.navigate('ViewListPhoto', { albumName: item.name, classroomId: item.classroom_id, albumId:item.id })}
+            style={styles.itemCard} 
+          >
           <View style={{flex:1,flexDirection:'column',justifyContent:'space-between'}}> 
               <View style={{justifyContent:'center',alignItems:'center'}}>
                   <Image 
-                  source={item.image} 
-                  resizeMode='cover'
-                  style={{position: 'relative'}}
+                    source={{ uri: uri }} 
+                    resizeMode='cover'
+                    style={{ width: '100%', height: 200,borderRadius:10 }}
                   />
               </View>
-              <Text style={{fontSize:hp(2),textAlign:'left',color:'black',fontWeight:'bold',paddingLeft:17}}>{item?.name}</Text>
-              <Text style={{fontSize:15,textAlign:'left',color:'black',paddingLeft:17}}>{item?.day}</Text>
+              <Text style={{fontSize:hp(2),textAlign:'left',color:'black',fontWeight:'bold',paddingLeft:5}}>{item?.name}</Text>
+              <Text style={{fontSize:15,textAlign:'left',color:'black',paddingLeft:5}}>{item?.date_upload}</Text>
               
           </View>
         </TouchableOpacity>

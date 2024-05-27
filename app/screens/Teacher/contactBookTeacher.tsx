@@ -59,7 +59,7 @@ const ContactBookTeacher = ({ route ,navigation}) => {
               <Text>{contactBookData.date_of_birth}</Text>
             </View>
             <View style={{alignItems:'center'}}>
-              <Image source={{ uri: contactBookData.profile_image }}  style={styles.avatarImage}/>
+              <Image source={{ uri: contactBookData.profile_image}}  style={styles.avatarImage}/>
               <Text style={{fontSize:20,fontWeight:'bold',paddingTop:10}}>{contactBookData.student_name}</Text>
             </View>
             <View style={{alignItems:'center'}}>
@@ -88,9 +88,19 @@ const ContactBookTeacher = ({ route ,navigation}) => {
           <View style={styles.contentContainer}>
           <View style={{height:1,backgroundColor:'#ccc',marginHorizontal:10}}></View>
                 {showHealth ? 
-                ( <FormSucKhoe studentId={studentId} healthData={contactBookData.health_information} classroomId={classroomId} /> )
+                ( <FormSucKhoe 
+                  studentId={studentId} 
+                  healthData={contactBookData.health_information} 
+                  classroomId={classroomId}
+                   /> )
                  : 
-                ( <FormHocTap studentId={studentId} studyData={contactBookData} classroomId={classroomId}/> )}
+                ( <FormHocTap 
+                studentId={studentId} 
+                studyData={contactBookData} 
+                classroomId={classroomId} 
+                goodBehaviorCertificates={contactBookData.good_behavior_certificates}
+                /> 
+                )}
           </View>
         </ScrollView>
 

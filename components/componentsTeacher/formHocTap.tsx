@@ -1,30 +1,31 @@
-import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,KeyboardAvoidingView, Platform } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import GoodChildCouponTeacher from '../../components/componentsTeacher/goodChildCoupont'
 import axios from 'axios';
 import { useAuth, API_URL } from '../../context/AuthContextApi';
-export default function FormHocTap({studentId, studyData, classroomId}) {
+export default function FormHocTap({studentId, studyData, classroomId ,goodBehaviorCertificates}) {
   const { authState } = useAuth();
 
-  const [total_absences, setTotal_absences] = useState(studyData.total_absences || '');
+  const [totalAbsences, setTotalAbsences] = useState(studyData.total_absences || '');
   const [comment, setComment] = useState(studyData.comment || '');
-  const [goodBehaviorCertificates, setGoodBehaviorCertificates] = useState(
-    studyData.good_behavior_certificates || [
-      { week: 1, is_good: false },
-      { week: 2, is_good: false },
-      { week: 3, is_good: false },
-      { week: 4, is_good: false },
-    ]
-  );
+  const [certificates, setCertificates] = useState(goodBehaviorCertificates);
+
+
+  useEffect(() => {
+    setCertificates(goodBehaviorCertificates || []);
+  }, [goodBehaviorCertificates]);
+  
   const handleCapNhatHocTap = async () => {
     try {
-      await axios.patch(`${API_URL}classrooms/${classroomId}/students/${studentId}/contact-book/study`, {
-        total_absences,
+      const body = {
+        total_absences:totalAbsences,
         comment,
-        good_behavior_certificates: goodBehaviorCertificates,
-      },{
+        good_behavior_certificates: JSON.parse(certificates)
+      }
+      console.log("BODYYYYYYYYY", body)
+      const response = await axios.patch(`${API_URL}classrooms/${classroomId}/students/${studentId}/contact-book/study`, body,{
         headers: {
-          Authorization: `${authState?.token}`
+          Authorization: `Bearer ${authState?.token}`
         }
       });
       alert('Cập nhật thông tin học tập thành công!');
@@ -34,18 +35,19 @@ export default function FormHocTap({studentId, studyData, classroomId}) {
     }
   };
   const handleCertificatesChange = (newCertificates) => {
-    setGoodBehaviorCertificates(newCertificates);
+    setCertificates(newCertificates);
   };
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
     <View style={styles.container}>
         <Text style={styles.title}>THÀNH TÍCH</Text>
         <View style={styles.content}>
             <Text style={styles.text}>Số ngày vắng</Text>
             <TextInput
             style={styles.textInput}
-            value={total_absences.toString()}
-            onChangeText={setTotal_absences}
+            value={totalAbsences.toString()}
+            onChangeText={setTotalAbsences}
             keyboardType="default"
             placeholder="Nhập..."
           />
@@ -62,7 +64,10 @@ export default function FormHocTap({studentId, studyData, classroomId}) {
         </View> */}
         <Text style={styles.text}>Phiếu bé ngoan</Text>
         <View>
-        <GoodChildCouponTeacher initialCertificates={goodBehaviorCertificates} onCertificatesChange={handleCertificatesChange} />
+        <GoodChildCouponTeacher
+        initialCertificates={certificates}
+        onCertificatesChange={handleCertificatesChange}
+      />
         </View>
         <Text style={{fontSize:18,fontWeight:'bold',paddingTop:10}}>Nhận xét của giáo viên</Text>
         <View style={styles.comment}>
@@ -79,6 +84,7 @@ export default function FormHocTap({studentId, studyData, classroomId}) {
         <Text style={styles.buttonText}>Cập nhật</Text>
       </TouchableOpacity>
     </View>
+    </KeyboardAvoidingView>
   )
 }
 const styles = StyleSheet.create({

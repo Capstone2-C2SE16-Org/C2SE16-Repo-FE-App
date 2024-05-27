@@ -3,9 +3,9 @@ import { View, Text, TextInput, Button, StyleSheet, Modal, Alert } from 'react-n
 import * as ImagePicker from 'expo-image-picker';
 
 const AddPhotoModal = ({ visible, onClose, onAddPhoto }) => {
-  const [photo, setPhoto] = useState('');
   const [title, setTitle] = useState('');
   const [day, setDay] = useState('');
+  const [photo, setPhoto] = useState(null);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -14,36 +14,32 @@ const AddPhotoModal = ({ visible, onClose, onAddPhoto }) => {
       aspect: [4, 3],
       quality: 1,
     });
-
+    console.log(result)
     if (!result.canceled) {
-      setPhoto(result.assets[0].uri); // Sửa đổi cách lấy URI từ result
+      setPhoto(result.assets[0].uri);
     }
   };
 
   const handleAddPhoto = () => {
-    if (photo.trim() === '' || title.trim() === '') {
-      Alert.alert('Lỗi', 'Vui lòng chọn ảnh và nhập tiêu đề.');
+    if (!photo || title.trim() === '' || day.trim() === '') {
+      Alert.alert('Lỗi', 'Vui lòng nhập tiêu đề, ngày và chọn ảnh nền.');
       return;
     }
 
-    onAddPhoto({ photo, title, day });
-    resetFields();
-    onClose();
-  };
-
-  const resetFields = () => {
-    setPhoto('');
+    onAddPhoto({ title, day, photo });
     setTitle('');
     setDay('');
+    setPhoto(null);
+    onClose();
   };
 
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={{ fontSize: 20, fontWeight: '500', marginBottom: 10 }}>Thêm mới Albums</Text>
-          <Button title="Chọn ảnh" onPress={pickImage} />
-          {photo !== '' && <Text style={styles.photoUri}>Ảnh đã chọn: {photo}</Text>}
+          <Text style={{ fontSize: 20, fontWeight: '500', marginBottom: 10 }}>Thêm mới Album</Text>
+          <Button title="Chọn ảnh nền" onPress={pickImage} />
+          {photo && <Text style={styles.photoUri}>Ảnh nền đã chọn: {photo.split('/').pop()}</Text>}
           <TextInput
             style={styles.input}
             value={title}
@@ -57,8 +53,8 @@ const AddPhotoModal = ({ visible, onClose, onAddPhoto }) => {
             placeholder="Ngày"
           />
           <View style={styles.buttonContainer}>
-            <Button title="Thêm Albums" onPress={handleAddPhoto} />
-            <Button title="Đóng" onPress={() => { resetFields(); onClose(); }} />
+            <Button title="Thêm Album" onPress={handleAddPhoto} />
+            <Button title="Đóng" onPress={() => { setTitle(''); setDay(''); setPhoto(null); onClose(); }} />
           </View>
         </View>
       </View>

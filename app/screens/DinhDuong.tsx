@@ -8,7 +8,7 @@ import { API_URL, useAuth } from '../../context/AuthContextApi'; // Ensure this 
 
 export default function DinhDuong() {
     const navigation = useNavigation();
-    const [showNutritionTower, setShowNutritionTower] = useState(true);
+    const [showNutritionTower, setShowNutritionTower] = useState(false);
     const [mealSchedule, setMealSchedule] = useState([]);
     const { authState } = useAuth();
     const { token } = authState || {};
@@ -83,19 +83,20 @@ export default function DinhDuong() {
                 ListHeaderComponent={
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            style={[styles.button, showNutritionTower ? styles.activeButton : null]}
-                            onPress={() => setShowNutritionTower(true)}
-                        >
-                            <FontAwesome5 name="carrot" size={24} color="black" />
-                            <Text style={styles.buttonText}>Tháp dinh dưỡng</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
                             style={[styles.button, !showNutritionTower ? styles.activeButton : null]}
                             onPress={() => setShowNutritionTower(false)}
                         >
                             <MaterialCommunityIcons name="calendar-clock" size={24} color="black" />
                             <Text style={styles.buttonText}>Lịch ăn của bé</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.button, showNutritionTower ? styles.activeButton : null]}
+                            onPress={() => setShowNutritionTower(true)}
+                        >
+                            <FontAwesome5 name="carrot" size={24} color="black" />
+                            <Text style={styles.buttonText}>Tháp dinh dưỡng</Text>
+                        </TouchableOpacity>
+                        
                     </View>
                 }
                 renderItem={renderItem}

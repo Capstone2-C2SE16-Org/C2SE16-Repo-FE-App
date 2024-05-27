@@ -9,11 +9,14 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my_jwt';
-// export const API_URL = 'http://192.168.1.9:8000/api/'
+// export const API_URL = 'http://172.20.99.80:8000/api/'
+// 03 quang trung
+export const API_ADDRESS= "http://172.26.205.186:8000"
+export const API_URL = `${API_ADDRESS}/api/`
 // cf
-// export const API_URL = 'http://172.26.214.44:8000/api/';
+// export const API_URL = 'http://172.26.209.46:8000/api/';
 // home
-export const API_URL = 'http://192.168.0.127:8000/api/';
+// export const API_URL = 'http://192.168.0.127:8000/api/';
 
 const AuthContext = createContext<AuthProps>({});
 
@@ -112,14 +115,14 @@ export const AuthProvider = ({ children }: any) => {
             let token, userData;
             try {
                 result = await axiosInstance.post('/login', { username, password });
-                console.log(result);
+                console.log('login response:',result);
                 token = result.data.user.token;
                 userData = result.data.user;
                 console.log('Teacher');
             } catch (error) {
                 // If teacher login fails, try student login
                 result = await axiosInstance.post('/student/login', { username, password });
-                console.log(result);
+                console.log('Student login response:', result);
                 token = result.data.data.token;
                 userData = result.data.data;
             }
@@ -127,7 +130,7 @@ export const AuthProvider = ({ children }: any) => {
             if (!token) {
                 throw new Error("No token found");
             }
-
+            console.log("Login successful, token:", token);
             setAuthState(prevState => ({
                 ...prevState,
                 token: token,

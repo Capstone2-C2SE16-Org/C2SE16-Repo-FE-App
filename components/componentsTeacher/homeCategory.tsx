@@ -35,7 +35,7 @@ export default function HomeCategory() {
             <Text style={styles.text}>Xin Nghỉ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.item}
-            onPress={()=>navigation.navigate('albumsteacher')}
+            onPress={()=>navigation.navigate('classroomlist',{screenName: 'Albums'})}
           >
             <View style={styles.icon}>
             <Ionicons name="images-outline" size={40} ></Ionicons>

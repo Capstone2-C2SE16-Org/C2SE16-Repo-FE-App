@@ -9,6 +9,8 @@ import ContactBook from '../screens/contactBook';
 // import ChatRoom from '../screens/chatRoom';
 import HocPhi from '../screens/hocPhi';
 import HomeStudent from '../screens/Home';
+import ViewListPhoto from '../screens/viewListPhoto';
+import NewsDetail from '../screens/newsDetail';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,11 @@ export default function HomeStackNav() {
         }}
         />
         <Stack.Screen name='albums' component={Albums}
+         options={{
+            headerShown:false
+        }}
+        />
+        <Stack.Screen name='ViewListPhoto' component={ViewListPhoto}
          options={{
             headerShown:false
         }}
@@ -55,6 +62,11 @@ export default function HomeStackNav() {
             headerShown:false
         }}
         />
+        <Stack.Screen name='newsdetail' component={NewsDetail}
+            options={{
+                headerShown:false
+            }}
+            />
    </Stack.Navigator>
   )
 }

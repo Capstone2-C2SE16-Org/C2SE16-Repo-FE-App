@@ -50,13 +50,13 @@ export default function SucKhoe({ healthInfo }) {
         <Text style={{ paddingRight: 10, fontSize: 18 }}>{healthInfo.vision_test}</Text>
       </View>
 
-      <Text style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>Nhận xét của giáo viên</Text>
+      {/* <Text style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 10 }}>Nhận xét của giáo viên</Text>
 
       <View style={styles.comment}>
         <Text style={{ padding: 10, fontSize: 16 }}>
           
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 }

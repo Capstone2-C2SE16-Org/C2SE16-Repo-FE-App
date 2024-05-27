@@ -1,12 +1,12 @@
 export const NewsInfo = [
   {
     name: 'Đây là những gì trẻ thực sự học ở mẫu giáo',
-    image: require('../assets/images/news1.png'),
+    image: require('../assets/images/hoccungbe.jpg'),
     content: 'Trong lớp mẫu giáo, trẻ không chỉ học các kỹ năng cơ bản như đếm số và nhận biết chữ cái mà còn học cách tương tác xã hội, giải quyết vấn đề và phát triển kỹ năng tự lập. Các hoạt động hàng ngày được thiết kế để khuyến khích sự phát triển toàn diện của trẻ.'
   },
   {
     name: 'Hình ảnh các bé vui vẻ ăn trưa cùng cô giáo',
-    image: require('../assets/images/news2.png'),
+    image: require('../assets/images/antrua.png'),
     content: 'Giờ ăn trưa tại trường mẫu giáo không chỉ là lúc để nạp năng lượng mà còn là cơ hội để các bé học cách tự phục vụ, làm quen với nhiều loại thực phẩm và phát triển kỹ năng giao tiếp. Các bé thường chia sẻ và trò chuyện vui vẻ cùng nhau dưới sự hướng dẫn của cô giáo.'
   },
   {
@@ -15,14 +15,14 @@ export const NewsInfo = [
     content: 'Trong lớp học tăng động, các bé được khuyến khích thể hiện bản thân một cách tự tin. Các hoạt động như hát, nhảy múa, và kể chuyện giúp các bé phát triển kỹ năng giao tiếp và tự tin nói trước đám đông. Đây là môi trường lý tưởng để trẻ học cách tự tin và thể hiện ý tưởng của mình.'
   },
   {
-    name: 'Phụ huynh chơi cùng trẻ mỗi ngày',
-    image: require('../assets/images/news4.png'),
+    name: 'Phụ huynh nên chơi cùng trẻ mỗi ngày',
+    image: require('../assets/images/choicungtre.jpg'),
     content: 'Thời gian chơi cùng phụ huynh mỗi ngày là cơ hội để tăng cường mối quan hệ gia đình và giúp trẻ phát triển kỹ năng xã hội. Các hoạt động như đọc sách, chơi đồ chơi và thảo luận về ngày học của trẻ giúp trẻ cảm thấy được yêu thương và hỗ trợ trong môi trường gia đình.'
   },
   {
-    name: 'Lớp học tăng động, sôi nổi',
-    image: require('../assets/images/news3.png'),
-    content: 'Các lớp học tăng động thường rất sôi nổi với nhiều hoạt động phong phú. Trẻ em được tham gia vào các trò chơi vận động, các dự án nhóm và nhiều hoạt động sáng tạo khác. Những trải nghiệm này không chỉ giúp trẻ phát triển thể chất mà còn nâng cao kỹ năng làm việc nhóm và sáng tạo.'
+    name: 'Các buổi ngoại khóa giúp bé phát triển hơn',
+    image: require('../assets/images/ngoaikhoa.jpg'),
+    content: 'Các buổi ngoại khóa sẽ có nhiều cơ hội cho trẻ được phát huy các điểm mạnh của mình. Trẻ em được tham gia vào các trò chơi vận động, các dự án nhóm và nhiều hoạt động sáng tạo khác. Những trải nghiệm này không chỉ giúp trẻ phát triển thể chất mà còn nâng cao kỹ năng làm việc nhóm và sáng tạo.'
   },
   {
     name: 'Phụ huynh nên lắng nghe tiếng lòng của trẻ',

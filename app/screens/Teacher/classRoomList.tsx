@@ -30,13 +30,16 @@ const ClassroomList = ({ navigation, route }) => {
   const handleSelectClassroom = (classroomId: String, students: any) => {
     switch (screenName) {
       case "Student":
-        navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId});       
-         break;
+        navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId });
+        break;
       case "Calendar":
-        navigation.navigate("lichHocList", { classroom: classroomId});
+        navigation.navigate("lichHocList", { classroom: classroomId });
+        break;
+      case "Albums":
+        navigation.navigate("albumsteacher", { classroomId: classroomId });
         break;
       case "Contact Book":
-        navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId});       
+        navigation.navigate('studentList', { screenName: screenName, students: students, classroomId: classroomId });
         break;
     }
   };
@@ -49,7 +52,8 @@ const ClassroomList = ({ navigation, route }) => {
       style={styles.studentItem}
       onPress={() => handleSelectClassroom(item.id, item.students)}
     >
-      <Image source={require('./../../../assets/images/Logo.png')} style={styles.avatar} />
+      {/* <Image source={require('./../../../assets/images/Logo.png')} style={styles.avatar} /> */}
+      <Image source={require('../../../assets/images/Logo.png')} style={styles.avatar} />
       <View style={{ flexDirection: 'column', paddingLeft: 25 }}>
         <Text style={styles.textName}>{item.name}</Text>
       </View>

@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   Pressable,
   Alert,
+  Platform 
 } from "react-native";
 import Checkbox from 'expo-checkbox';
 import { useRouter } from "expo-router";
@@ -43,7 +44,7 @@ const Login = ({navigation})=> {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:"#fff"}}>
       <View style={styles.container}>
         <Image style={styles.image} source={require("../assets/images/Logo.png")} />
         <View style={styles.titleView}>
@@ -90,9 +91,9 @@ const Login = ({navigation})=> {
             </TouchableOpacity>
         </View>
         {/* onPress={()=> router.push('/screens/Home')} */}
-        <TouchableOpacity style={styles.loginBtn} onPress={login} >
+        <Pressable style={styles.loginBtn} onPress={login} android_ripple={{ color: 'yellow' }} >
             <Text>LOGIN</Text>
-        </TouchableOpacity>
+        </Pressable>
         {/* <View style={{flexDirection:'row',paddingTop:10}}>
             <Text style={{fontSize:16}}>Don't have an account?</Text>
             <Pressable onPress={()=>router.push('/SignIn')}>
@@ -171,6 +172,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(252, 219, 0, 1)",
+    marginBottom:400,
   },
 });
 export default Login

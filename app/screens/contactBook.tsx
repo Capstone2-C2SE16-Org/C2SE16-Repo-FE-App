@@ -16,7 +16,7 @@ export default function ContactBook() {
   const [contactBook, setContactBook] = useState(null);
 
   useEffect(() => {
-    const authToken = userData?.token; // Lấy token từ userData
+    const authToken = userData?.token; 
     console.log(authToken)
     if (authToken) {
       axios.get(`${API_URL}contact-books/my`, {

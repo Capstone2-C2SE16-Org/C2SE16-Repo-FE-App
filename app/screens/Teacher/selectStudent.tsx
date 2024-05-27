@@ -1,30 +1,43 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, FlatList } from 'react-native';
+import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+const SelectStudent = ({ route }) => {
+  const navigation = useNavigation();
+  const { screenName, students, classroomId } = route.params;
 
-const SelectStudent = ({ navigation, route }) => {
-  const { screenName, students, classroomId } = route.params
   const handleSelectStudent = (student) => {
     switch (screenName) {
       case "Student":
         navigation.navigate('studentinfo', { studentId: student.id, classroomId: classroomId });
         break;
       case "Contact Book":
-        navigation.navigate('contactbookteacher', { studentId: student.id,classroomId: classroomId});
+        navigation.navigate('contactbookteacher', { studentId: student.id, classroomId: classroomId });
+        break;
       default:
         break;
     }
   };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.studentItem}
+      onPress={() => handleSelectStudent(item)}
+    >
+      <Image source={{ uri: item.profile_image }} style={styles.avatar} />
+      <View style={{ flexDirection: 'column', paddingLeft: 25 }}>
+        <Text style={styles.textName}>{item.name}</Text>
+        <Text style={styles.textNickName}>{item.nickname}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.header}>
-          <View style={{ flexDirection: 'row' }}>
-            <MaterialIcons name="arrow-back-ios" size={30} color="black" onPress={() => navigation.goBack()} />
-          </View>
+          <MaterialIcons name="arrow-back-ios" size={30} color="black" onPress={() => navigation.goBack()} />
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
             {screenName === 'Student' ? 'Thông tin học sinh' : 'Sổ liên lạc điện tử'}
           </Text>
@@ -32,29 +45,22 @@ const SelectStudent = ({ navigation, route }) => {
         </View>
         <View style={styles.body}>
           <Text style={styles.title}>Chọn Học sinh của bạn:</Text>
-          {students.map((student, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.studentItem}
-              onPress={() => handleSelectStudent(student)}
-            >
-              <Image source={{ uri: student.profile_image }} style={styles.avatar} />
-              <View style={{ flexDirection: 'column', paddingLeft: 25 }}>
-                <Text style={styles.textName}>{student.name}</Text>
-                <Text style={styles.textNickName}>{student.nickname}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          <FlatList
+            data={students}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+
+            keyExtractor={item => item.id.toString()}
+          />
         </View>
       </View>
     </SafeAreaView>
-
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -66,6 +72,7 @@ const styles = StyleSheet.create({
   },
   body: {
     paddingHorizontal: 25,
+    marginBottom:150,
   },
   title: {
     paddingTop: 20,
