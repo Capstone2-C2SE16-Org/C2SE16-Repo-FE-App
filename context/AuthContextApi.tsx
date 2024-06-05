@@ -11,7 +11,7 @@ interface AuthProps {
 const TOKEN_KEY = 'my_jwt';
 // export const API_URL = 'http://172.20.99.80:8000/api/'
 // 03 quang trung
-export const API_ADDRESS= "http://172.26.205.186:8000"
+export const API_ADDRESS= "http://10.14.0.105:8000"
 export const API_URL = `${API_ADDRESS}/api/`
 // cf
 // export const API_URL = 'http://172.26.209.46:8000/api/';
@@ -22,7 +22,7 @@ const AuthContext = createContext<AuthProps>({});
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
-    timeout: 10000, // Set timeout to 10 seconds
+    timeout: 10000, // Set timeout to 10 seconds`
 });
 
 // Add interceptors for detailed logging
